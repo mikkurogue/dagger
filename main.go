@@ -7,7 +7,6 @@ import (
 	"os"
 	"os/exec"
 	"strings"
-	"time"
 
 	xstrings "github.com/charmbracelet/x/exp/strings"
 
@@ -46,6 +45,7 @@ func main() {
 				huh.NewOption("Bat - better cat", "bat"),
 				huh.NewOption("Ripgrep - better grep", "ripgrep"),
 				huh.NewOption("Oh my zsh - ZSH theming", "oh-my-zsh"),
+				huh.NewOption("TheFuck - CLi typo fixer", "thefuck"),
 			).
 			Validate(func(s []string) error {
 				if len(s) == 0 {
@@ -75,29 +75,36 @@ func main() {
 	}
 
 	install := func() {
-		time.Sleep(2 * time.Second)
-
 		for _, tool := range cli_tools {
 			switch tool {
 			case "eza":
 				_ = spinner.New().Title("Installing Eza...").Action(func() {
-					// out, err := exec.Command("brew install", "eza").Output()
-					// if err != nil {
-					// 	color.Red("Error installing Eza")
-					// 	os.Exit(1)
-					// }
-					// fmt.Printf(out)
-					color.Green("Eza installed successfully.")
+					_, err := exec.Command("brew", "install", "eza").Output()
+					if err != nil {
+						color.Red("Error installing eza")
+						os.Exit(1)
+					}
+
+					_, setupErr := exec.Command("/bin/zsh", "-c", "alias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'").Output()
+					if setupErr != nil {
+						color.Red("Can not set ls alias")
+					}
 				}).Run()
 			case "fzf":
-				_ = spinner.New().Title("Installing FZF...").Action(func() {
-					time.Sleep(2 * time.Second)
-					color.Green("FZF installed successfully.")
+				_ = spinner.New().Title("Installing fzf...").Action(func() {
+					_, err := exec.Command("brew", "install", "fzf").Output()
+					if err != nil {
+						color.Red("Error installing fzf")
+						os.Exit(1)
+					}
 				}).Run()
 			case "bat":
-				_ = spinner.New().Title("Installing Bat...").Action(func() {
-					time.Sleep(2 * time.Second)
-					color.Green("Bat installed successfully.")
+				_ = spinner.New().Title("Installing bat...").Action(func() {
+					_, err := exec.Command("brew", "install", "bat").Output()
+					if err != nil {
+						color.Red("Error installing bat")
+						os.Exit(1)
+					}
 				}).Run()
 			case "ripgrep":
 				_ = spinner.New().Title("Installing Ripgrep...").Action(func() {
@@ -109,14 +116,30 @@ func main() {
 				}).Run()
 			case "oh-my-zsh":
 				_ = spinner.New().Title("Installing Oh my zsh...").Action(func() {
-					time.Sleep(2 * time.Second)
-					color.Green("Oh my zsh installed successfully.")
+					_, err := exec.Command("brew", "install", "oh-my-zsh").Output()
+					if err != nil {
+						color.Red("Error installing oh my zsh")
+						os.Exit(1)
+					}
+				}).Run()
+			case "thefuck":
+				_ = spinner.New().Title("Installing thefuck...").Action(func() {
+					_, err := exec.Command("brew", "install", "thefuck").Output()
+					if err != nil {
+						color.Red("Error installing thefuck")
+						os.Exit(1)
+					}
+
+					_, setupErr := exec.Command("/bin/zsh", "-c", "eval $(thefuck --alias)").Output()
+					if setupErr != nil {
+						color.Red("Can not set thefuck alias")
+					}
 				}).Run()
 			}
 		}
 	}
 
-	_ = spinner.New().Title("Installing cli tools...").Action(install).Run()
+	_ = spinner.New().Action(install).Run()
 
 	var sb strings.Builder
 	keyword := func(s string) string {

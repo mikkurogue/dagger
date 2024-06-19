@@ -1,15 +1,15 @@
-name: goreleaser
-
 builds:
- - binary: bigmile-cli
-  goos:
-    - darwin
-    - linux
-  goarch:
-    - amd64
-    - arm64
-  env:
-    - CGO_ENABLED=0
+  - binary: askcloudhelloworld
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -mod=vendor
 
 release:
   prerelease: auto
@@ -19,14 +19,14 @@ universal_binaries:
 
 brews:
   -
-    name: bigmile-cli
-    homepage: https://bigmile.eu
+    name: askcloudhelloworld
+    homepage: https://github.com/askcloudarchitech/askcloudhelloworld
     tap:
-      owner: mikkurogue
-      name: homebrew-mikkurogue
-      commit_author:
-        name: Mikku
-        email: michael.lindemans@outlook.com
+      owner: askcloudarchitech
+      name: homebrew-askcloudarchitech
+    commit_author:
+      name: gmorse81
+      email: gmorse81@gmail.com
 
 checksum:
-  name_template: 'bigmile-cli-checksums.txt'
+  name_template: 'checksums.txt'

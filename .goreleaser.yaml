@@ -1,5 +1,5 @@
 builds:
-  - binary: askcloudhelloworld
+  - binary: bigmile-cli
     goos:
       - darwin
       - linux
@@ -8,8 +8,6 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
-    flags:
-      - -mod=vendor
 
 release:
   prerelease: auto
@@ -19,14 +17,11 @@ universal_binaries:
 
 brews:
   -
-    name: askcloudhelloworld
-    homepage: https://github.com/askcloudarchitech/askcloudhelloworld
-    tap:
-      owner: askcloudarchitech
-      name: homebrew-askcloudarchitech
+    name: bigmile-cli
+    homepage: https:/bigmile.eu
     commit_author:
-      name: gmorse81
-      email: gmorse81@gmail.com
+      name: Mikku
+      email: michael.lindemans@outlook.com
 
 checksum:
   name_template: 'checksums.txt'

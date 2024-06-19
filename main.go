@@ -227,22 +227,37 @@ func main() {
 	}
 	fmt.Println(
 		lipgloss.NewStyle().
+			Width(40).
+			BorderStyle(lipgloss.RoundedBorder()).
+			Padding(1, 2).
 			Render(sb.String()),
 	)
 
 	var aliases_sb strings.Builder
 	if aliases[0] == "skip" {
-		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("209")).Render("Aliases skipped."))
+		fmt.Println(lipgloss.NewStyle().
+			Width(40).
+			BorderStyle(lipgloss.RoundedBorder()).
+			Padding(1, 2).
+			Foreground(lipgloss.Color("209")).Render("Aliases skipped."))
 	} else {
 		fmt.Fprintf(&aliases_sb,
 			"Following aliases have been set \n%s\n",
 			keyword(xstrings.SpokenLanguageJoin(aliases, xstrings.EN)),
 		)
 	}
-	fmt.Println(lipgloss.NewStyle().Render(aliases_sb.String()))
+	fmt.Println(lipgloss.NewStyle().Width(40).
+		BorderStyle(lipgloss.RoundedBorder()).
+		Padding(1, 2).
+		Render(aliases_sb.String()))
 
 	if code_editor != "skip" {
-		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("211")).Render("Code editor installed " + code_editor))
+		fmt.Println(lipgloss.NewStyle().
+			Width(40).
+			BorderStyle(lipgloss.RoundedBorder()).
+			Padding(1, 2).
+			Foreground(lipgloss.Color("211")).
+			Render("Code editor installed " + code_editor))
 	}
 
 }

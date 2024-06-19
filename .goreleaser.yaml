@@ -5,7 +5,7 @@ builds:
   goos:
     - darwin
     - linux
-  goarch: 
+  goarch:
     - amd64
     - arm64
   env:

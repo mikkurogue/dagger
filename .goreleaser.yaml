@@ -1,3 +1,5 @@
+name: goreleaser
+
 builds:
  - binary: bigmile-cli
   goos:

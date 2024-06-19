@@ -33,12 +33,24 @@ Only cli tool that is not recommended for Linux is `thefuck` as this seems to be
 
 ## How to install
 
-From terminal, run these commands:
-`curl -O https://github.com/mikkurogue/bigmile-cli/rel/bigmile.tar.gz`
-`curl -O https://github.com/mikkurogue/bigmile-cli/rel/install.sh`
+Requirements: Github access token
 
-After run the install script:
-`chmod +x install.sh`
-`./install.sh`
+Go to https://github.com/settings/tokens/new and create a new token. I recommend creating a token that does not expire, but its up to you.
 
-Then once complete you should be able to run the BigMile cli simply by typing `bigmile` to your terminal
+In your terminal, create the api access token env variable
+`export HOMEBREW_GITHUB_API_TOKEN=<the token you just generated>`
+
+Once you have created the HOMEBREW_GITHUB_API_TOKEN environment variable, you have to add the brew tap to the package.
+
+`brew tap mikkurogue/mikkurogue`
+
+Once you've added the tap, you may now install the bigmile-cli package
+
+`brew install mikkurogue/mikkurogue/bigmile-cli`
+
+note: i know the naming scheme sucks, I'll fix it one day (soon tm)
+
+Once this is installed, you can now simply run the cli in the terminal:
+`bigmile-cli`
+
+Happy BigMile cli-ing

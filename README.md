@@ -3,7 +3,7 @@
 
 A short golang project for bigmile to create a cli tool that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.
 
-If you have a feature request, feel free to create a PR.
+If you have a feature request, feel free to create a PR. Once the PR is merged, a release *should* go out into the wild
 
 ## Current support:
 

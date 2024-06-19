@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
 
 	xstrings "github.com/charmbracelet/x/exp/strings"
@@ -23,7 +24,22 @@ var (
 	zsh              bool
 	zed_installed    bool
 	vscode_installed bool
+	current_os 		string
 )
+
+func CheckOperatingSystem() {
+	if runtime.GOOS == "windows" {
+		current_os = "windows"
+	}
+
+	if runtime.GOOS == "darwin" {
+		current_os = "darwin"
+	}
+
+	if runtime.GOOS == "linux" {
+		current_os = "linux"
+	}
+}
 
 func main() {
 	form := huh.NewForm(
@@ -53,7 +69,7 @@ func main() {
 			).
 			Validate(func(s []string) error {
 				if len(s) == 0 {
-					return errors.New("Please select at least one tool to install")
+					return errors.New("please select at least one tool to install")
 				}
 				return nil
 			}).
@@ -68,7 +84,7 @@ func main() {
 			).
 			Validate(func(s []string) error {
 				if len(s) == 0 {
-					return errors.New("Please select at least one alias to install")
+					return errors.New("please select at least one alias to install")
 				}
 				return nil
 			}).
@@ -85,7 +101,7 @@ func main() {
 				).
 				Validate(func(s string) error {
 					if s == "" {
-						return errors.New("Please select at least one code editor to install")
+						return errors.New("please select at least one code editor to install")
 					}
 					return nil
 				}).
@@ -117,6 +133,10 @@ func main() {
 			switch tool {
 			case "eza":
 				_ = spinner.New().Title("Installing Eza...").Action(func() {
+					if current_os == "windows" {
+						color.Red("can not install eza on this operating system")
+						return
+					}
 					_, err := exec.Command("brew", "install", "eza").Output()
 					if err != nil {
 						color.Red("Error installing eza")
@@ -130,6 +150,10 @@ func main() {
 				}).Run()
 			case "fzf":
 				_ = spinner.New().Title("Installing fzf...").Action(func() {
+					if current_os == "windows" {
+						color.Red("can not install fzf on this operating system")
+						return
+					}
 					_, err := exec.Command("brew", "install", "fzf").Output()
 					if err != nil {
 						color.Red("Error installing fzf")
@@ -138,6 +162,10 @@ func main() {
 				}).Run()
 			case "bat":
 				_ = spinner.New().Title("Installing bat...").Action(func() {
+					if current_os == "windows" {
+						color.Red("can not install bat on this operating system")
+						return
+					}
 					_, err := exec.Command("brew", "install", "bat").Output()
 					if err != nil {
 						color.Red("Error installing bat")
@@ -146,6 +174,10 @@ func main() {
 				}).Run()
 			case "ripgrep":
 				_ = spinner.New().Title("Installing Ripgrep...").Action(func() {
+					if current_os == "windows" {
+						color.Red("can not install ripgrep on this operating system")
+						return
+					}
 					_, err := exec.Command("brew", "install", "ripgrep").Output()
 					if err != nil {
 						color.Red("Error installing ripgrep")
@@ -154,6 +186,10 @@ func main() {
 				}).Run()
 			case "oh-my-zsh":
 				_ = spinner.New().Title("Installing Oh my zsh...").Action(func() {
+					if current_os == "windows" {
+						color.Red("can not install oh my zsh on this operating system")
+						return
+					}
 					_, err := exec.Command("brew", "install", "oh-my-zsh").Output()
 					if err != nil {
 						color.Red("Error installing oh my zsh")
@@ -162,6 +198,12 @@ func main() {
 				}).Run()
 			case "thefuck":
 				_ = spinner.New().Title("Installing thefuck...").Action(func() {
+					
+					if current_os != "darwin" {
+						color.Red("can not install thefuck on this operating system")
+						return
+					}
+
 					_, err := exec.Command("brew", "install", "thefuck").Output()
 					if err != nil {
 						color.Red("Error installing thefuck")
@@ -182,6 +224,12 @@ func main() {
 			switch alias {
 			case "git-purge":
 				_ = spinner.New().Title("Setting git-purge alias").Action(func() {
+
+					if current_os == "windows" {
+						color.Red("can not set git-purge alias on this operating system")
+						return
+					}
+
 					_, err := exec.Command("/bin/zsh",
 						"-c",
 						"alias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"").
@@ -197,6 +245,12 @@ func main() {
 
 		// install code editor
 		if code_editor != "skip" {
+
+			if current_os == "windows" {
+				color.Red("can not set install via brew on this operating system")
+				return
+			}
+
 			_ = spinner.New().Title("Installing text editor...").Action(func() {
 				_, err := exec.Command("brew", "install", "--cask", code_editor).Output()
 				if err != nil {

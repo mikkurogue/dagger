@@ -18,6 +18,7 @@ import (
 
 var (
 	cli_tools        []string
+	aliases          []string
 	code_editor      string
 	zsh              bool
 	zed_installed    bool
@@ -47,7 +48,7 @@ func main() {
 				huh.NewOption("Bat - better cat", "bat"),
 				huh.NewOption("Ripgrep - better grep", "ripgrep"),
 				huh.NewOption("Oh my zsh - ZSH theming", "oh-my-zsh"),
-				huh.NewOption("TheFuck - CLi typo fixer", "thefuck"),
+				huh.NewOption("TheFuck - CLI typo fixer", "thefuck"),
 				huh.NewOption("Skip step", "skip"),
 			).
 			Validate(func(s []string) error {
@@ -57,6 +58,21 @@ func main() {
 				return nil
 			}).
 			Value(&cli_tools)),
+		// Install handy dandy aliases
+		huh.NewGroup(huh.NewMultiSelect[string]().
+			Title("Aliases").
+			Description("Select the aliases you would like to install").
+			Options(
+				huh.NewOption("git purge", "git-purge"),
+				huh.NewOption("Skip step", "skip"),
+			).
+			Validate(func(s []string) error {
+				if len(s) == 0 {
+					return errors.New("Please select at least one alias to install")
+				}
+				return nil
+			}).
+			Value(&aliases)),
 		// Install text editor
 		huh.NewGroup(
 			huh.NewSelect[string]().
@@ -162,6 +178,23 @@ func main() {
 			}
 		}
 
+		for _, alias := range aliases {
+			switch alias {
+			case "git-purge":
+				_ = spinner.New().Title("Setting git-purge alias").Action(func() {
+					_, err := exec.Command("/bin/zsh",
+						"-c",
+						"alias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"").
+						Output()
+					if err != nil {
+						color.Red("Can not set git purge alias")
+					}
+				}).Run()
+			case "skip":
+				continue
+			}
+		}
+
 		// install code editor
 		if code_editor != "skip" {
 			_ = spinner.New().Title("Installing text editor...").Action(func() {
@@ -177,13 +210,12 @@ func main() {
 
 	}
 
-	_ = spinner.New().Action(install).Run()
+	_ = spinner.New().Title("").Action(install).Run()
 
 	var sb strings.Builder
 	keyword := func(s string) string {
 		return lipgloss.NewStyle().Foreground(lipgloss.Color("212")).Render(s)
 	}
-
 	if cli_tools[0] == "skip" {
 		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("209")).Render("CLI Tools skipped."))
 	} else {
@@ -193,11 +225,21 @@ func main() {
 		)
 
 	}
-
 	fmt.Println(
 		lipgloss.NewStyle().
 			Render(sb.String()),
 	)
+
+	var aliases_sb strings.Builder
+	if aliases[0] == "skip" {
+		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("209")).Render("Aliases skipped."))
+	} else {
+		fmt.Fprintf(&aliases_sb,
+			"Following aliases have been set \n%s\n",
+			keyword(xstrings.SpokenLanguageJoin(aliases, xstrings.EN)),
+		)
+	}
+	fmt.Println(lipgloss.NewStyle().Render(aliases_sb.String()))
 
 	if code_editor != "skip" {
 		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("211")).Render("Code editor installed " + code_editor))

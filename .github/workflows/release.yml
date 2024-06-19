@@ -6,7 +6,6 @@ on:
     # run only against tags
     tags:
       - "*"
-  pull_request:
 
 permissions:
   contents: write

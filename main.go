@@ -24,7 +24,7 @@ var (
 	zsh              bool
 	zed_installed    bool
 	vscode_installed bool
-	current_os 		string
+	current_os       string
 )
 
 func CheckOperatingSystem() {
@@ -42,6 +42,9 @@ func CheckOperatingSystem() {
 }
 
 func main() {
+
+	CheckOperatingSystem()
+
 	form := huh.NewForm(
 		//  TODO figure out how to make sure we are authed in git package
 		// huh.NewGroup(
@@ -198,7 +201,7 @@ func main() {
 				}).Run()
 			case "thefuck":
 				_ = spinner.New().Title("Installing thefuck...").Action(func() {
-					
+
 					if current_os != "darwin" {
 						color.Red("can not install thefuck on this operating system")
 						return

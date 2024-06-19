@@ -12,12 +12,14 @@ Currently the cli supports installing
 - ripgrep
 - oh my zsh
 - thefuck
+- A code editor
+  - Zed
+  - VSCode
 
   Note: to use this, you MUST use the zsh terminal. It makes it easier to develop for if the whole team is using the same shell. Functionally zsh and bash are the same but zsh is slightly newer.
 
   ## Planned
 
-  - install text editor (vscode/zed)
   - authenticate with azure repo
   - pull azure repo into target directory
-  - git purge command
+  - git purge alias

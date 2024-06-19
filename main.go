@@ -114,7 +114,7 @@ func main() {
 		huh.NewGroup(
 			huh.NewConfirm().
 				Title("Is your default shell zsh?").
-				Description("This is required for Oh my zsh to function.").
+				Description("This is required for Oh my zsh to function.\n").
 				Value(&zsh),
 		),
 	)
@@ -126,7 +126,7 @@ func main() {
 	}
 
 	if !zsh {
-		color.Red("Oh my zsh requires zsh as the default shell.")
+		color.Red("Oh my zsh requires zsh as the default shell.\n")
 		os.Exit(1)
 	}
 
@@ -137,65 +137,65 @@ func main() {
 			case "eza":
 				_ = spinner.New().Title("Installing Eza...").Action(func() {
 					if current_os == "windows" {
-						color.Red("can not install eza on this operating system")
+						color.Red("can not install eza on this operating system\n")
 						return
 					}
 					_, err := exec.Command("brew", "install", "eza").Output()
 					if err != nil {
-						color.Red("Error installing eza")
+						color.Red("Error installing eza\n")
 						os.Exit(1)
 					}
 
 					_, setupErr := exec.Command("/bin/zsh", "-c", "alias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'").Output()
 					if setupErr != nil {
-						color.Red("Can not set ls alias")
+						color.Red("Can not set ls alias\n")
 					}
 				}).Run()
 			case "fzf":
 				_ = spinner.New().Title("Installing fzf...").Action(func() {
 					if current_os == "windows" {
-						color.Red("can not install fzf on this operating system")
+						color.Red("can not install fzf on this operating system\n")
 						return
 					}
 					_, err := exec.Command("brew", "install", "fzf").Output()
 					if err != nil {
-						color.Red("Error installing fzf")
+						color.Red("Error installing fzf\n")
 						os.Exit(1)
 					}
 				}).Run()
 			case "bat":
 				_ = spinner.New().Title("Installing bat...").Action(func() {
 					if current_os == "windows" {
-						color.Red("can not install bat on this operating system")
+						color.Red("can not install bat on this operating system\n")
 						return
 					}
 					_, err := exec.Command("brew", "install", "bat").Output()
 					if err != nil {
-						color.Red("Error installing bat")
+						color.Red("Error installing bat\n")
 						os.Exit(1)
 					}
 				}).Run()
 			case "ripgrep":
 				_ = spinner.New().Title("Installing Ripgrep...").Action(func() {
 					if current_os == "windows" {
-						color.Red("can not install ripgrep on this operating system")
+						color.Red("can not install ripgrep on this operating system\n")
 						return
 					}
 					_, err := exec.Command("brew", "install", "ripgrep").Output()
 					if err != nil {
-						color.Red("Error installing ripgrep")
+						color.Red("Error installing ripgrep\n")
 						os.Exit(1)
 					}
 				}).Run()
 			case "oh-my-zsh":
 				_ = spinner.New().Title("Installing Oh my zsh...").Action(func() {
 					if current_os == "windows" {
-						color.Red("can not install oh my zsh on this operating system")
+						color.Red("can not install oh my zsh on this operating system\n")
 						return
 					}
 					_, err := exec.Command("brew", "install", "oh-my-zsh").Output()
 					if err != nil {
-						color.Red("Error installing oh my zsh")
+						color.Red("Error installing oh my zsh\n")
 						os.Exit(1)
 					}
 				}).Run()
@@ -203,19 +203,19 @@ func main() {
 				_ = spinner.New().Title("Installing thefuck...").Action(func() {
 
 					if current_os != "darwin" {
-						color.Red("can not install thefuck on this operating system")
+						color.Red("can not install thefuck on this operating system\n")
 						return
 					}
 
 					_, err := exec.Command("brew", "install", "thefuck").Output()
 					if err != nil {
-						color.Red("Error installing thefuck")
+						color.Red("Error installing thefuck\n")
 						os.Exit(1)
 					}
 
 					_, setupErr := exec.Command("/bin/zsh", "-c", "eval $(thefuck --alias)").Output()
 					if setupErr != nil {
-						color.Red("Can not set thefuck alias")
+						color.Red("Can not set thefuck alias\n")
 					}
 				}).Run()
 			case "skip":
@@ -229,7 +229,7 @@ func main() {
 				_ = spinner.New().Title("Setting git-purge alias").Action(func() {
 
 					if current_os == "windows" {
-						color.Red("can not set git-purge alias on this operating system")
+						color.Red("can not set git-purge alias on this operating system \n")
 						return
 					}
 
@@ -238,7 +238,7 @@ func main() {
 						"alias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"").
 						Output()
 					if err != nil {
-						color.Red("Can not set git purge alias")
+						color.Red("Can not set git purge alias\n")
 					}
 				}).Run()
 			case "skip":
@@ -250,7 +250,13 @@ func main() {
 		if code_editor != "skip" {
 
 			if current_os == "windows" {
-				color.Red("can not set install via brew on this operating system")
+				color.Red("can not set install via brew on this operating system\n")
+				return
+			}
+
+			if current_os == "linux" || code_editor == "zed" {
+				color.Red("can not install zed on linux yet...\n")
+				code_editor = "skip"
 				return
 			}
 

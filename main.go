@@ -204,8 +204,6 @@ func main() {
 					os.Exit(1)
 				}
 			})
-		} else {
-			color.Magenta("Skipped code editor install")
 		}
 
 	}
@@ -217,21 +215,24 @@ func main() {
 		return lipgloss.NewStyle().Foreground(lipgloss.Color("212")).Render(s)
 	}
 	if cli_tools[0] == "skip" {
-		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("209")).Render("CLI Tools skipped."))
+		fmt.Println(lipgloss.NewStyle().
+			Width(40).
+			BorderStyle(lipgloss.RoundedBorder()).
+			Padding(1, 2).
+			Foreground(lipgloss.Color("209")).Render("CLI Tools skipped."))
 	} else {
 		fmt.Fprintf(&sb,
 			"Following tools were installed \n%s\n",
 			keyword(xstrings.SpokenLanguageJoin(cli_tools, xstrings.EN)),
 		)
-
+		fmt.Println(
+			lipgloss.NewStyle().
+				Width(40).
+				BorderStyle(lipgloss.RoundedBorder()).
+				Padding(1, 2).
+				Render(sb.String()),
+		)
 	}
-	fmt.Println(
-		lipgloss.NewStyle().
-			Width(40).
-			BorderStyle(lipgloss.RoundedBorder()).
-			Padding(1, 2).
-			Render(sb.String()),
-	)
 
 	var aliases_sb strings.Builder
 	if aliases[0] == "skip" {
@@ -245,13 +246,21 @@ func main() {
 			"Following aliases have been set \n%s\n",
 			keyword(xstrings.SpokenLanguageJoin(aliases, xstrings.EN)),
 		)
+		fmt.Println(lipgloss.NewStyle().
+			Width(40).
+			BorderStyle(lipgloss.RoundedBorder()).
+			Padding(1, 2).
+			Render(aliases_sb.String()))
 	}
-	fmt.Println(lipgloss.NewStyle().Width(40).
-		BorderStyle(lipgloss.RoundedBorder()).
-		Padding(1, 2).
-		Render(aliases_sb.String()))
 
-	if code_editor != "skip" {
+	if code_editor == "skip" {
+		fmt.Println(lipgloss.NewStyle().
+			Width(40).
+			BorderStyle(lipgloss.RoundedBorder()).
+			Padding(1, 2).
+			Foreground(lipgloss.Color("209")).
+			Render("Code editor install skipped."))
+	} else {
 		fmt.Println(lipgloss.NewStyle().
 			Width(40).
 			BorderStyle(lipgloss.RoundedBorder()).

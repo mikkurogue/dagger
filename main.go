@@ -17,9 +17,11 @@ import (
 )
 
 var (
-	cli_tools []string
-
-	zsh bool
+	cli_tools        []string
+	code_editor      string
+	zsh              bool
+	zed_installed    bool
+	vscode_installed bool
 )
 
 func main() {
@@ -46,6 +48,7 @@ func main() {
 				huh.NewOption("Ripgrep - better grep", "ripgrep"),
 				huh.NewOption("Oh my zsh - ZSH theming", "oh-my-zsh"),
 				huh.NewOption("TheFuck - CLi typo fixer", "thefuck"),
+				huh.NewOption("Skip step", "skip"),
 			).
 			Validate(func(s []string) error {
 				if len(s) == 0 {
@@ -54,6 +57,24 @@ func main() {
 				return nil
 			}).
 			Value(&cli_tools)),
+		// Install text editor
+		huh.NewGroup(
+			huh.NewSelect[string]().
+				Title("Code editor").
+				Description("Select the code editor you want to install").
+				Options(
+					huh.NewOption("Visual Studio Code", "visual-studio-code"),
+					huh.NewOption("Zed", "zed"),
+					huh.NewOption("Skip step", "skip"),
+				).
+				Validate(func(s string) error {
+					if s == "" {
+						return errors.New("Please select at least one code editor to install")
+					}
+					return nil
+				}).
+				Value(&code_editor)),
+
 		// Final info about cli installs
 		huh.NewGroup(
 			huh.NewConfirm().
@@ -75,6 +96,7 @@ func main() {
 	}
 
 	install := func() {
+		// install cli tools
 		for _, tool := range cli_tools {
 			switch tool {
 			case "eza":
@@ -135,8 +157,24 @@ func main() {
 						color.Red("Can not set thefuck alias")
 					}
 				}).Run()
+			case "skip":
+				continue
 			}
 		}
+
+		// install code editor
+		if code_editor != "skip" {
+			_ = spinner.New().Title("Installing text editor...").Action(func() {
+				_, err := exec.Command("brew", "install", "--cask", code_editor).Output()
+				if err != nil {
+					color.Red("Error installing " + code_editor)
+					os.Exit(1)
+				}
+			})
+		} else {
+			color.Magenta("Skipped code editor install")
+		}
+
 	}
 
 	_ = spinner.New().Action(install).Run()
@@ -145,13 +183,24 @@ func main() {
 	keyword := func(s string) string {
 		return lipgloss.NewStyle().Foreground(lipgloss.Color("212")).Render(s)
 	}
-	fmt.Fprintf(&sb,
-		"Following tools were installed \n%s\n",
-		keyword(xstrings.EnglishJoin(cli_tools, true)),
-	)
+
+	if cli_tools[0] == "skip" {
+		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("209")).Render("CLI Tools skipped."))
+	} else {
+		fmt.Fprintf(&sb,
+			"Following tools were installed \n%s\n",
+			keyword(xstrings.SpokenLanguageJoin(cli_tools, xstrings.EN)),
+		)
+
+	}
 
 	fmt.Println(
 		lipgloss.NewStyle().
 			Render(sb.String()),
 	)
+
+	if code_editor != "skip" {
+		fmt.Println(lipgloss.NewStyle().Foreground(lipgloss.Color("211")).Render("Code editor installed " + code_editor))
+	}
+
 }

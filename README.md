@@ -1,8 +1,9 @@
 # Bigmile CLI init tool
 [![goreleaser](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml/badge.svg)](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml)
 
-A short golang project for bigmile to create a cli tool that can help setup the developers environment with some default cli packages, installing the repo required to start work and potentially installing VSCode or Zed editor for the developer.
+A short golang project for bigmile to create a cli tool that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.
 
+If you have a feature request, feel free to create a PR.
 
 ## Current support:
 
@@ -26,19 +27,15 @@ Only cli tool that is not recommended for Linux is `thefuck` as this seems to be
 
 ## Planned
 
- - authenticate with azure repo
- - pull azure repo into target directory
  - Bash support (dynamic options like removing oh my zsh when bash is selected)
  - Check if homebrew is installed - if not then install it first from the script and add the .zshrc options
 
+## Unplanned
+- Azure setup
+- Repo pulling
+The reason this will not happen is for safety as I do not want to expose potential data breaches even if it's authenticated from Azure AD.
+
 ## How to install
-
-Requirements: Github access token
-
-Go to https://github.com/settings/tokens/new and create a new token. I recommend creating a token that does not expire, but its up to you.
-
-In your terminal, create the api access token env variable
-`export HOMEBREW_GITHUB_API_TOKEN=<the token you just generated>`
 
 Once you have created the HOMEBREW_GITHUB_API_TOKEN environment variable, you have to add the brew tap to the package.
 

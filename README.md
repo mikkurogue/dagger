@@ -29,6 +29,14 @@ Only cli tool that is not recommended for Linux is `thefuck` as this seems to be
  - pull azure repo into target directory
  - Bash support (dynamic options like removing oh my zsh when bash is selected)
 
-## How to use? (future, not working yet)
+## How to install
 
-When installed, just run `bigmile init` and you should see the cli tool open.
+From terminal, run these commands:
+`curl -O https://github.com/mikkurogue/bigmile-cli/rel/bigmile.tar.gz`
+`curl -O https://github.com/mikkurogue/bigmile-cli/rel/install.sh`
+
+After run the install script:
+`chmod +x install.sh`
+`./install.sh`
+
+Then once complete you should be able to run the BigMile cli simply by typing `bigmile` to your terminal

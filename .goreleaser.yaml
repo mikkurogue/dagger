@@ -24,6 +24,7 @@ brews:
     repository:
       owner: mikkurogue
       name: homebrew-mikkurogue
+    download_strategy: GitHubPrivateRepositoryReleaseDownloadStrategy
 
 checksum:
   name_template: "checksums.txt"

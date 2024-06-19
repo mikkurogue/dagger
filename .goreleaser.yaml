@@ -21,6 +21,9 @@ brews:
     commit_author:
       name: Mikku
       email: michael.lindemans@outlook.com
+    repository:
+      owner: mikkurogue
+      name: homebrew-mikkurogue
 
 checksum:
   name_template: "checksums.txt"

@@ -28,6 +28,7 @@ Only cli tool that is not recommended for Linux is `thefuck` as this seems to be
  - authenticate with azure repo
  - pull azure repo into target directory
  - Bash support (dynamic options like removing oh my zsh when bash is selected)
+ - Check if homebrew is installed - if not then install it first from the script and add the .zshrc options
 
 ## How to install
 

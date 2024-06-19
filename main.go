@@ -25,6 +25,8 @@ var (
 	zed_installed    bool
 	vscode_installed bool
 	current_os       string
+
+	curr_step int = 0
 )
 
 func CheckOperatingSystem() {
@@ -68,6 +70,7 @@ func main() {
 				huh.NewOption("Ripgrep - better grep", "ripgrep"),
 				huh.NewOption("Oh my zsh - ZSH theming", "oh-my-zsh"),
 				huh.NewOption("TheFuck - CLI typo fixer", "thefuck"),
+				huh.NewOption("lazygit - terminal git manage", "lazygit"),
 				huh.NewOption("Skip step", "skip"),
 			).
 			Validate(func(s []string) error {
@@ -131,11 +134,13 @@ func main() {
 	}
 
 	install := func() {
+
 		// install cli tools
 		for _, tool := range cli_tools {
 			switch tool {
 			case "eza":
 				_ = spinner.New().Title("Installing Eza...").Action(func() {
+					curr_step += 1
 					if current_os == "windows" {
 						color.Red("can not install eza on this operating system\n")
 						return
@@ -153,6 +158,7 @@ func main() {
 				}).Run()
 			case "fzf":
 				_ = spinner.New().Title("Installing fzf...").Action(func() {
+					curr_step += 1
 					if current_os == "windows" {
 						color.Red("can not install fzf on this operating system\n")
 						return
@@ -165,6 +171,7 @@ func main() {
 				}).Run()
 			case "bat":
 				_ = spinner.New().Title("Installing bat...").Action(func() {
+					curr_step += 1
 					if current_os == "windows" {
 						color.Red("can not install bat on this operating system\n")
 						return
@@ -177,6 +184,7 @@ func main() {
 				}).Run()
 			case "ripgrep":
 				_ = spinner.New().Title("Installing Ripgrep...").Action(func() {
+					curr_step += 1
 					if current_os == "windows" {
 						color.Red("can not install ripgrep on this operating system\n")
 						return
@@ -189,6 +197,7 @@ func main() {
 				}).Run()
 			case "oh-my-zsh":
 				_ = spinner.New().Title("Installing Oh my zsh...").Action(func() {
+					curr_step += 1
 					if current_os == "windows" {
 						color.Red("can not install oh my zsh on this operating system\n")
 						return
@@ -201,7 +210,7 @@ func main() {
 				}).Run()
 			case "thefuck":
 				_ = spinner.New().Title("Installing thefuck...").Action(func() {
-
+					curr_step += 1
 					if current_os != "darwin" {
 						color.Red("can not install thefuck on this operating system\n")
 						return
@@ -218,6 +227,19 @@ func main() {
 						color.Red("Can not set thefuck alias\n")
 					}
 				}).Run()
+			case "lazygit":
+				_ = spinner.New().Title("Installing lazygit..").Action(func() {
+					curr_step += 1
+					if current_os == "windows" {
+						color.Red("can not install lazygit on this operating system using brew\n")
+						return
+					}
+					_, err := exec.Command("brew", "install", "lazygit").Output()
+					if err != nil {
+						color.Red("Error installing oh my lazygit\n")
+						os.Exit(1)
+					}
+				}).Run()
 			case "skip":
 				continue
 			}
@@ -227,7 +249,7 @@ func main() {
 			switch alias {
 			case "git-purge":
 				_ = spinner.New().Title("Setting git-purge alias").Action(func() {
-
+					curr_step += 1
 					if current_os == "windows" {
 						color.Red("can not set git-purge alias on this operating system \n")
 						return
@@ -258,15 +280,17 @@ func main() {
 				color.Red("can not install zed on linux yet...\n")
 				code_editor = "skip"
 				return
-			}
+			} else {
+				curr_step += 1
 
-			_ = spinner.New().Title("Installing text editor...").Action(func() {
-				_, err := exec.Command("brew", "install", "--cask", code_editor).Output()
-				if err != nil {
-					color.Red("Error installing " + code_editor)
-					os.Exit(1)
-				}
-			})
+				_ = spinner.New().Title("Installing text editor...").Action(func() {
+					_, err := exec.Command("brew", "install", "--cask", code_editor).Output()
+					if err != nil {
+						color.Red("Error installing " + code_editor)
+						os.Exit(1)
+					}
+				})
+			}
 		}
 
 	}

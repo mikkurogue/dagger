@@ -50,6 +50,13 @@ Once you've added the tap, you may now install the bigmile-cli package
 
 note: i know the naming scheme sucks, I'll fix it one day (soon tm)
 
+If you are feeling brave, you can also run the command
+
+`brew install bigmile-cli`
+
+However this does not always guarantee you go to the right brew tap, but if you're feeling frisky go right ahead!
+
+
 Once this is installed, you can now simply run the cli in the terminal:
 `bigmile-cli`
 

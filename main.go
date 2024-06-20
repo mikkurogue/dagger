@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bigmile-cli/core"
-	"bigmile-cli/installer"
+	"dagger/core"
+	"dagger/installer"
 	"fmt"
 	"log"
 	"os"
@@ -48,13 +48,13 @@ func main() {
 	CheckOperatingSystem()
 
 	form := huh.NewForm(
-		core.Tools(cli_tools),
+		core.Tools(&cli_tools),
 		// Install handy dandy aliases
-		core.Aliases(aliases),
+		core.Aliases(&aliases),
 		// Install text editor
-		core.Editors(code_editor),
+		core.Editors(&code_editor),
 		// Final info about cli installs
-		core.ShellConfirm(zsh),
+		core.ShellConfirm(&zsh),
 	)
 
 	err := form.Run()

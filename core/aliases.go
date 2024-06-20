@@ -6,7 +6,7 @@ import (
 	"github.com/charmbracelet/huh"
 )
 
-func Aliases(aliases []string) *huh.Group {
+func Aliases(aliases *[]string) *huh.Group {
 	return huh.NewGroup(huh.NewMultiSelect[string]().
 		Title("Aliases").
 		Description("Select the aliases you would like to install").
@@ -20,5 +20,5 @@ func Aliases(aliases []string) *huh.Group {
 			}
 			return nil
 		}).
-		Value(&aliases))
+		Value(aliases))
 }

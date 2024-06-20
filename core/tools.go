@@ -6,7 +6,7 @@ import (
 	"github.com/charmbracelet/huh"
 )
 
-func Tools(cli_tools []string) *huh.Group {
+func Tools(cli_tools *[]string) *huh.Group {
 	return huh.NewGroup(huh.NewMultiSelect[string]().
 		Title("CLI tools to install").
 		Description("Select the tools you would like to install").
@@ -26,5 +26,5 @@ func Tools(cli_tools []string) *huh.Group {
 			}
 			return nil
 		}).
-		Value(&cli_tools))
+		Value(cli_tools))
 }

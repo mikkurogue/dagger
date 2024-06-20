@@ -1,4 +1,4 @@
-module bigmile-cli
+module dagger
 
 go 1.22.4
 

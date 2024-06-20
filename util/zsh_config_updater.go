@@ -8,6 +8,8 @@ import (
 	"github.com/fatih/color"
 )
 
+// example alias:  alias := "\n# Added by Go program\nalias ll='ls -la'\n"
+
 func ZshConfigUpdater(alias string) {
 	usr, err := user.Current()
 	if err != nil {

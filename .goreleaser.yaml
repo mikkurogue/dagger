@@ -14,7 +14,6 @@ release:
 
 universal_binaries:
   - replace: true
-  - name_template: "dgr"
 
 brews:
   - name: dagger

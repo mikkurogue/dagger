@@ -14,9 +14,10 @@ release:
 
 universal_binaries:
   - replace: true
+  - name_template: "dgr"
 
 brews:
-  - name: Dagger
+  - name: dagger
     homepage: https://github.com/mikkurogue/dagger-cli
     commit_author:
       name: Mikku

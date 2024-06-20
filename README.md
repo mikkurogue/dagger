@@ -1,4 +1,4 @@
-# Dagger CLI - dgr
+# Dagger CLI - dagger
 [![goreleaser](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml/badge.svg)](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml)
 
 A short CLI tool in Go that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.

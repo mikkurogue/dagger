@@ -5,7 +5,11 @@
 
 A short CLI tool in Go that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.
 
-If you have a feature request, feel free to create a PR. Once the PR is merged, a release *should* go out into the wild
+If you have a feature request, feel free to create a PR. Releases will happen periodically on a whim, contributors can always request a release when a specific feature has been merged.
+
+To get in contact with me, or any contributors, click the Discord badge to join the dagger cli community!
+First contributors to contribute and join the discord get a special "founder" role, no extra benefits just a cool little gizmo.
+
 
 ## Current support:
 

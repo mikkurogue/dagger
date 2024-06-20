@@ -2,7 +2,9 @@ package main
 
 import (
 	"dagger/core"
+	core_windows "dagger/core/windows"
 	"dagger/installer"
+	installer_windows "dagger/installer/windows"
 	"fmt"
 	"log"
 	"os"
@@ -47,6 +49,53 @@ func main() {
 
 	CheckOperatingSystem()
 
+	
+
+}
+
+func WindowsForm() {
+	form := huh.NewForm(
+		core_windows.Tools(&cli_tools),
+	)
+
+	err := form.Run()
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	install := func() {
+		installer_windows.Tools(cli_tools)
+	}
+
+	_ = spinner.New().Title("").Action(install).Run()
+
+	var sb strings.Builder
+	keyword := func(s string) string {
+		return lipgloss.NewStyle().Foreground(lipgloss.Color("212")).Render(s)
+	}
+	if cli_tools[0] == "skip" {
+		fmt.Println(lipgloss.NewStyle().
+			Width(40).
+			BorderStyle(lipgloss.RoundedBorder()).
+			Padding(1, 2).
+			Foreground(lipgloss.Color("209")).Render("CLI Tools skipped."))
+	} else {
+		fmt.Fprintf(&sb,
+			"Following tools were installed \n%s\n",
+			keyword(xstrings.SpokenLanguageJoin(cli_tools, xstrings.EN)),
+		)
+		fmt.Println(
+			lipgloss.NewStyle().
+				Width(40).
+				BorderStyle(lipgloss.RoundedBorder()).
+				Padding(1, 2).
+				Render(sb.String()),
+		)
+	}
+}
+
+func UnixForm() {
 	form := huh.NewForm(
 		core.Tools(&cli_tools),
 		// Install handy dandy aliases
@@ -134,5 +183,4 @@ func main() {
 			Foreground(lipgloss.Color("211")).
 			Render("Code editor installed " + code_editor))
 	}
-
 }

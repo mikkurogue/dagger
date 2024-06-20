@@ -48,18 +48,6 @@ func main() {
 	CheckOperatingSystem()
 
 	form := huh.NewForm(
-		//  TODO figure out how to make sure we are authed in git package
-		// huh.NewGroup(
-		// 	huh.NewSelect[string]().
-		// 		Title("Select BigMile Repository to clone").
-		// 		Options(
-		// 			huh.NewOption("BigMile3 Monorepo", "bigmile3"),
-		// 			huh.NewOption("FE Boilerplate", "frontend-boilerplate"), // this is just to test
-		// 		).
-		// 		Description("Select one of the repositories above to get started.").
-		// 		Value(&repo_name)
-		// 	huh.NewConfirm().Title("Finish repo setup?"),
-		// ),
 		huh.NewGroup(huh.NewMultiSelect[string]().
 			Title("CLI tools to install").
 			Description("Select the tools you would like to install").

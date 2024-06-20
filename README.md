@@ -1,7 +1,7 @@
-# Bigmile CLI init tool
+# Dagger CLI - dgr
 [![goreleaser](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml/badge.svg)](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml)
 
-A short golang project for bigmile to create a cli tool that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.
+A short CLI tool in Go that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.
 
 If you have a feature request, feel free to create a PR. Once the PR is merged, a release *should* go out into the wild
 
@@ -30,31 +30,24 @@ Only cli tool that is not recommended for Linux is `thefuck` as this seems to be
  - Bash support (dynamic options like removing oh my zsh when bash is selected)
  - Check if homebrew is installed - if not then install it first from the script and add the .zshrc options
 
-## Unplanned
-- Azure setup
-- Repo pulling
-The reason this will not happen is for safety as I do not want to expose potential data breaches even if it's authenticated from Azure AD.
-
 ## How to install
-
-Once you have created the HOMEBREW_GITHUB_API_TOKEN environment variable, you have to add the brew tap to the package.
 
 `brew tap mikkurogue/mikkurogue`
 
-Once you've added the tap, you may now install the bigmile-cli package
+Once you've added the tap, you may now install the dagger package
 
-`brew install mikkurogue/mikkurogue/bigmile-cli`
+`brew install mikkurogue/mikkurogue/dgr`
 
 note: i know the naming scheme sucks, I'll fix it one day (soon tm)
 
 If you are feeling brave, you can also run the command
 
-`brew install bigmile-cli`
+`brew install dgr`
 
 However this does not always guarantee you go to the right brew tap, but if you're feeling frisky go right ahead!
 
 
 Once this is installed, you can now simply run the cli in the terminal:
-`bigmile-cli`
+`dgr`
 
-Happy BigMile cli-ing
+Happy Dagger cli-ing!

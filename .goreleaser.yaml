@@ -1,5 +1,5 @@
 builds:
-  - binary: bigmile-cli
+  - binary: dgr
     goos:
       - darwin
       - linux
@@ -16,8 +16,8 @@ universal_binaries:
   - replace: true
 
 brews:
-  - name: bigmile-cli
-    homepage: https:/bigmile.eu
+  - name: Dagger
+    homepage: https://github.com/mikkurogue/dagger-cli
     commit_author:
       name: Mikku
       email: michael.lindemans@outlook.com

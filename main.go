@@ -49,8 +49,12 @@ func main() {
 
 	CheckOperatingSystem()
 
-	
+	if current_os == "windows" {
+		WindowsForm()
 
+	} else {
+		UnixForm()
+	}
 }
 
 func WindowsForm() {

@@ -1,5 +1,5 @@
 builds:
-  - binary: dgr
+  - binary: dagger
     goos:
       - darwin
       - linux

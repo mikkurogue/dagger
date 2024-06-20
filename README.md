@@ -34,20 +34,17 @@ Only cli tool that is not recommended for Linux is `thefuck` as this seems to be
 
 `brew tap mikkurogue/mikkurogue`
 
-Once you've added the tap, you may now install the dagger package
+Once you've added the tap, you may now install the dagger package.
 
-`brew install mikkurogue/mikkurogue/dgr`
+`brew install mikkurogue/mikkurogue/dagger`
 
 note: i know the naming scheme sucks, I'll fix it one day (soon tm)
 
-If you are feeling brave, you can also run the command
-
-`brew install dgr`
-
-However this does not always guarantee you go to the right brew tap, but if you're feeling frisky go right ahead!
-
-
 Once this is installed, you can now simply run the cli in the terminal:
-`dgr`
+`dagger-cli`. I do recommend aliasing the to a custom command like
+
+`alias dagger="dagger-cli"`
+`alias dagger="dgr"`
+etc..
 
 Happy Dagger cli-ing!

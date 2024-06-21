@@ -1,54 +1,64 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Dagger CLI</title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
-    </head>
+<!DOCTYPE html>
+<html lang="en">
 
-    <body>
-        <main id="container">
-            <h1>Dagger cli - set up environments easily</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagger</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-            <span> A simple tool from a simple developer </span>
-
-            <div id="terminal">
-                <!-- Terminal Bar -->
-                <section id="terminal__bar">
-                    <div id="bar__buttons">
-                        <button class="bar__button" id="bar__button--exit">
-                            &#10005;
-                        </button>
-                        <button class="bar__button">&#9472;</button>
-                        <button class="bar__button">&#9723;</button>
-                    </div>
-                    <p id="bar__user">~</p>
-                </section>
-                <!-- Terminal Body -->
-                <section id="terminal__body">
-                    <div id="terminal__prompt">
-                        <span id="terminal__prompt--user"></span>
-                        <span id="terminal__prompt--location">~</span>
-                        <span id="terminal__prompt--bling">&nbsp;</span>
-                        <span id="txt" class="terminal-text"></span>
-                        <span id="terminal__prompt--cursor"></span>
-                    </div>
-                </section>
+<body>
+    <header>
+        <h1>Dagger</h1>
+        <span>A tool for developers, by developers for development</span>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="red"></span>
+                    <span class="yellow"></span>
+                    <span class="green"></span>
+                    <div class="terminal-title">~</div>
+                </div>
+                <div class="terminal-body">
+                    <pre><span class="prompt">~</span> <span id="command" class="cursor"></span></pre>
+                </div>
             </div>
-        </main>
-    </body>
-    <script src="autotyping.min.js"></script>
-    <script>
-        const typing = new AutoTyping("#txt", ["dagger"], {
-            typeSpeed: 150,
-            deleteSpeed: 100,
-            waitBeforeDelete: 2000,
-            waitBetweenWords: 500,
-        });
+        </section>
+        <section class="product-info">
+            <div class="card">
+                <h2>What is dagger?</h2>
+                <p>Dagger is a simple CLI setup tool written by a developer for other developers.
+                    The main idea is that I swap between environments relatively often (Windows to mac to WSL2 to
+                    ubuntu, you know the deal). The idea is to make this as seemless as possible each time without
+                    having to remember all the packages and commands.
+                </p>
+            </div>
+            <div class="card">
+                <h2>Who is dagger for?</h2>
+                <p>Honestly, dagger seems to be very VERY niche but the great thing is that I want to make dagger
+                    flexible and usable for more than just environment setup. Join our discord and contribute to the
+                    product in your way.</p>
+            </div>
 
-        typing.start();
-    </script>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 mikkurogue/dagger-cli</p>
+
+        <a href="github.com/mikkurogue/dagger-cli">
+
+            <svg class="github-logo" height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true">
+                <path fill-rule="evenodd" fill="#FFFFFF"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.58.82-2.14-.08-.2-.36-1.01.08-2.1 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.03 2.2-.82 2.2-.82.44 1.09.16 1.9.08 2.1.51.56.82 1.27.82 2.14 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.001 8.001 0 0 0 16 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+
+        </a>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
 </html>

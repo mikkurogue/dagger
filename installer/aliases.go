@@ -17,7 +17,7 @@ func Aliases(aliases []string, current_os string, curr_step int) {
 					color.Red("can not set git-purge alias on this operating system \n")
 					return
 				}
-				util.ZshConfigUpdater("\n# Added by dagger\nalias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"")
+				util.AgnosticConfigUpdater("\n# Added by dagger\nalias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"")
 			}).Run()
 		case "skip":
 			continue

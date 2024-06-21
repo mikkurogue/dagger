@@ -3,10 +3,10 @@ package main
 import (
 	"dagger/core"
 	"dagger/installer"
+	"dagger/util"
 	"fmt"
 	"log"
 	"os"
-	"runtime"
 	"strings"
 
 	xstrings "github.com/charmbracelet/x/exp/strings"
@@ -14,38 +14,26 @@ import (
 	"github.com/charmbracelet/huh"
 	"github.com/charmbracelet/huh/spinner"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/fatih/color"
 )
 
 var (
 	cli_tools        []string
 	aliases          []string
 	code_editor      string
-	zsh              bool
 	zed_installed    bool
 	vscode_installed bool
 	current_os       string
-
 	curr_step int = 0
+	shell string
 )
 
-func CheckOperatingSystem() {
-	if runtime.GOOS == "windows" {
-		current_os = "windows"
-	}
 
-	if runtime.GOOS == "darwin" {
-		current_os = "darwin"
-	}
-
-	if runtime.GOOS == "linux" {
-		current_os = "linux"
-	}
-}
 
 func main() {
 
-	CheckOperatingSystem()
+	util.DefineOs(&current_os)
+
+	fmt.Print(util.ShellDefiner())
 
 	form := huh.NewForm(
 		core.Tools(&cli_tools),
@@ -54,17 +42,14 @@ func main() {
 		// Install text editor
 		core.Editors(&code_editor),
 		// Final info about cli installs
-		core.ShellConfirm(&zsh),
+		// Dont look to confirm the shell anymore - we dont support omz at the moment
+		// so bash actually should just work if we change hardcoded zshrc values
+		// core.ShellConfirm(&zsh),
 	)
 
 	err := form.Run()
 	if err != nil {
 		log.Fatal(err)
-		os.Exit(1)
-	}
-
-	if !zsh {
-		color.Red("Oh my zsh requires zsh as the default shell.\n")
 		os.Exit(1)
 	}
 

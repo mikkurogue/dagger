@@ -10,6 +10,21 @@ import (
 
 // example alias:  alias := "\n# Added by dagger\nalias ll='ls -la'\n"
 
+func AgnosticConfigUpdater(alias string) {
+
+		var shell_path = ShellDefiner()
+
+		if shell_path == default_bash_path {
+			BashConfigUpdater(alias)
+		}
+
+		if shell_path == default_zsh_path {
+			ZshConfigUpdater(alias)
+		}
+	
+}
+
+
 func ZshConfigUpdater(alias string) {
 	usr, err := user.Current()
 	if err != nil {

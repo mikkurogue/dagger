@@ -25,7 +25,7 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 
-				util.ZshConfigUpdater("\n# Added by dagger\nalias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permissions --tree --level=2'")
+				util.AgnosticConfigUpdater("\n# Added by dagger\nalias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permissions --tree --level=2'")
 			}).Run()
 		case "fzf":
 			_ = spinner.New().Title("Installing fzf...").Action(func() {
@@ -80,7 +80,7 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 
-				util.ZshConfigUpdater("\n# Added by dagger\neval $(thefuck --alias)")
+				util.AgnosticConfigUpdater("\n# Added by dagger\neval $(thefuck --alias)")
 			}).Run()
 		case "lazygit":
 			_ = spinner.New().Title("Installing lazygit..").Action(func() {

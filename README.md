@@ -32,9 +32,13 @@ A majority of these commands (should) work for Linux machines too, that use zsh.
 Only cli tool that is not recommended for Linux is `thefuck` as this seems to be either super slow or it doesnt work properly on the Linux kernel.
 
 ## Planned
-
  - Bash support (dynamic options like removing oh my zsh when bash is selected)
+ - Update .zshrc / .bashrc files for the installed packages
  - Check if homebrew is installed - if not then install it first from the script and add the .zshrc options
+ - Windows support
+ - pre-checks to see if brew is installed (unix systems)
+ - code boilerplate library
+   - in `~/dagger/boilerplates/<language>/generated_boilerplate_name.<lang extensoin>` have a set of simple boilerplates like React components, Go main files etc. This idea is still in super infancy
 
 ## How to install
 

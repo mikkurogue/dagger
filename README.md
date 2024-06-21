@@ -5,11 +5,27 @@
 
 A short CLI tool in Go that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.
 
+## Installation
+
+`brew tap mikkurogue/mikkurogue`
+
+Once you've added the tap, you may now install the dagger package.
+
+`brew install mikkurogue/mikkurogue/dagger`
+
+note: i know the naming scheme sucks, I'll fix it one day (soon tm)
+
+Once this is installed, you can now simply run the cli in the terminal:
+`dagger`.
+
+## Contribution
+
 If you have a feature request, feel free to create a PR. Releases will happen periodically on a whim, contributors can always request a release when a specific feature has been merged.
 
 To get in contact with me, or any contributors, click the Discord badge to join the dagger cli community!
 First contributors to contribute and join the discord get a special "founder" role, no extra benefits just a cool little gizmo.
 
+For now as we do not have any real windows support, I do recommend if you are a Windows user to use the WSL2 linux distros to develop and test against this tool. Once Windows support is in a alpha-ish state then WSL2 isnt necessary. Please note, windows support is not on the main radar to create extra development time or priorities for from my end. 
 
 ## Current support:
 
@@ -40,17 +56,6 @@ Only cli tool that is not recommended for Linux is `thefuck` as this seems to be
  - code boilerplate library
    - in `~/dagger/boilerplates/<language>/generated_boilerplate_name.<lang extensoin>` have a set of simple boilerplates like React components, Go main files etc. This idea is still in super infancy
 
-## How to install
 
-`brew tap mikkurogue/mikkurogue`
-
-Once you've added the tap, you may now install the dagger package.
-
-`brew install mikkurogue/mikkurogue/dagger`
-
-note: i know the naming scheme sucks, I'll fix it one day (soon tm)
-
-Once this is installed, you can now simply run the cli in the terminal:
-`dagger`.
 
 Happy stabbin' (heh get it, cause dagger)!

@@ -1,7 +1,7 @@
 package installer
 
 import (
-	"os/exec"
+	"dagger/util"
 
 	"github.com/charmbracelet/huh/spinner"
 	"github.com/fatih/color"
@@ -17,14 +17,7 @@ func Aliases(aliases []string, current_os string, curr_step int) {
 					color.Red("can not set git-purge alias on this operating system \n")
 					return
 				}
-
-				_, err := exec.Command("/bin/zsh",
-					"-c",
-					"alias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"").
-					Output()
-				if err != nil {
-					color.Red("Can not set git purge alias\n")
-				}
+				util.ZshConfigUpdater("\n# Added by dagger\nalias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"")
 			}).Run()
 		case "skip":
 			continue

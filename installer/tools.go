@@ -80,10 +80,7 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 
-				_, setupErr := exec.Command("/bin/zsh", "-c", "eval $(thefuck --alias)").Output()
-				if setupErr != nil {
-					color.Red("Can not set thefuck alias\n")
-				}
+				util.ZshConfigUpdater("\n# Added by dagger\neval $(thefuck --alias)")
 			}).Run()
 		case "lazygit":
 			_ = spinner.New().Title("Installing lazygit..").Action(func() {

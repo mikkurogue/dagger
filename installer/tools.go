@@ -1,6 +1,7 @@
 package installer
 
 import (
+	"dagger/util"
 	"os"
 	"os/exec"
 
@@ -9,9 +10,6 @@ import (
 )
 
 func Tools(cli_tools []string, current_os string, curr_step int) {
-
-	containsOhMyZsh := contains(cli_tools, "oh-my-zsh")
-
 	for _, tool := range cli_tools {
 		switch tool {
 		case "eza":
@@ -27,14 +25,7 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 
-				// check if there is omz in the selection, then skip setting this for now
-				// and in omz setting check if eza was selected and append to .zshrc
-				if !containsOhMyZsh {
-					_, setupErr := exec.Command("/bin/zsh", "-c", "alias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'").Output()
-					if setupErr != nil {
-						color.Red("Can not set ls alias\n")
-					}
-				}
+				util.ZshConfigUpdater("\n# Added by dagger\nalias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'")
 			}).Run()
 		case "fzf":
 			_ = spinner.New().Title("Installing fzf...").Action(func() {
@@ -72,19 +63,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 				_, err := exec.Command("brew", "install", "ripgrep").Output()
 				if err != nil {
 					color.Red("Error installing ripgrep\n")
-					os.Exit(1)
-				}
-			}).Run()
-		case "oh-my-zsh":
-			_ = spinner.New().Title("Installing Oh my zsh...").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install oh my zsh on this operating system\n")
-					return
-				}
-				_, err := exec.Command("brew", "install", "oh-my-zsh").Output()
-				if err != nil {
-					color.Red("Error installing oh my zsh\n")
 					os.Exit(1)
 				}
 			}).Run()

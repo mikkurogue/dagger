@@ -10,6 +10,8 @@ import (
 
 func Tools(cli_tools []string, current_os string, curr_step int) {
 
+	containsOhMyZsh := contains(cli_tools, "oh-my-zsh")
+
 	for _, tool := range cli_tools {
 		switch tool {
 		case "eza":
@@ -25,9 +27,13 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 
-				_, setupErr := exec.Command("/bin/zsh", "-c", "alias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'").Output()
-				if setupErr != nil {
-					color.Red("Can not set ls alias\n")
+				// check if there is omz in the selection, then skip setting this for now
+				// and in omz setting check if eza was selected and append to .zshrc
+				if !containsOhMyZsh {
+					_, setupErr := exec.Command("/bin/zsh", "-c", "alias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'").Output()
+					if setupErr != nil {
+						color.Red("Can not set ls alias\n")
+					}
 				}
 			}).Run()
 		case "fzf":
@@ -118,4 +124,13 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			continue
 		}
 	}
+}
+
+func contains(s []string, str string) bool {
+	for _, value := range s {
+		if value == str {
+			return true
+		}
+	}
+	return false
 }

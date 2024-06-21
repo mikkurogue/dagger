@@ -1,6 +1,7 @@
 package installer
 
 import (
+	"dagger/util"
 	"os"
 	"os/exec"
 
@@ -9,7 +10,6 @@ import (
 )
 
 func Tools(cli_tools []string, current_os string, curr_step int) {
-
 	for _, tool := range cli_tools {
 		switch tool {
 		case "eza":
@@ -25,10 +25,7 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 
-				_, setupErr := exec.Command("/bin/zsh", "-c", "alias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'").Output()
-				if setupErr != nil {
-					color.Red("Can not set ls alias\n")
-				}
+				util.ZshConfigUpdater("\n# Added by dagger\nalias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permission --tree --level=2'")
 			}).Run()
 		case "fzf":
 			_ = spinner.New().Title("Installing fzf...").Action(func() {
@@ -69,19 +66,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 			}).Run()
-		case "oh-my-zsh":
-			_ = spinner.New().Title("Installing Oh my zsh...").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install oh my zsh on this operating system\n")
-					return
-				}
-				_, err := exec.Command("brew", "install", "oh-my-zsh").Output()
-				if err != nil {
-					color.Red("Error installing oh my zsh\n")
-					os.Exit(1)
-				}
-			}).Run()
 		case "thefuck":
 			_ = spinner.New().Title("Installing thefuck...").Action(func() {
 				curr_step += 1
@@ -96,10 +80,7 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 					os.Exit(1)
 				}
 
-				_, setupErr := exec.Command("/bin/zsh", "-c", "eval $(thefuck --alias)").Output()
-				if setupErr != nil {
-					color.Red("Can not set thefuck alias\n")
-				}
+				util.ZshConfigUpdater("\n# Added by dagger\neval $(thefuck --alias)")
 			}).Run()
 		case "lazygit":
 			_ = spinner.New().Title("Installing lazygit..").Action(func() {
@@ -118,4 +99,13 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			continue
 		}
 	}
+}
+
+func contains(s []string, str string) bool {
+	for _, value := range s {
+		if value == str {
+			return true
+		}
+	}
+	return false
 }

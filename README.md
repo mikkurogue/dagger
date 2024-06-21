@@ -25,7 +25,7 @@ If you have a feature request, feel free to create a PR. Releases will happen pe
 To get in contact with me, or any contributors, click the Discord badge to join the dagger cli community!
 First contributors to contribute and join the discord get a special "founder" role, no extra benefits just a cool little gizmo.
 
-For now as we do not have any real windows support, I do recommend if you are a Windows user to use the WSL2 linux distros to develop and test against this tool. Once Windows support is in a alpha-ish state then WSL2 isnt necessary. Please note, windows support is not on the main radar to create extra development time or priorities for from my end. 
+For now as we do not have any real windows support, I do recommend if you are a Windows user to use the WSL2 linux distros to develop and test against this tool. Once Windows support is in a alpha-ish state then WSL2 isnt necessary. Please note, windows support is not on the main radar to create extra development time or priorities for from my end.
 
 ## Current support:
 
@@ -34,7 +34,6 @@ Currently the cli supports installing
 - fzf
 - bat
 - ripgrep
-- oh my zsh
 - thefuck
 - A code editor
   - Zed

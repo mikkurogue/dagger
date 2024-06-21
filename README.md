@@ -1,5 +1,5 @@
 # Dagger CLI - dagger
-[![goreleaser](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml/badge.svg)](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml) 
+[![goreleaser](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml/badge.svg)](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml)
 [![](https://dcbadge.limes.pink/api/server/sjuAavPyQt?style=flat)](https://discord.gg/sjuAavPyQt)
 
 
@@ -47,10 +47,6 @@ Once you've added the tap, you may now install the dagger package.
 note: i know the naming scheme sucks, I'll fix it one day (soon tm)
 
 Once this is installed, you can now simply run the cli in the terminal:
-`dagger-cli`. I do recommend aliasing the to a custom command like
+`dagger`.
 
-`alias dagger="dagger-cli"`
-`alias dagger="dgr"`
-etc..
-
-Happy Dagger cli-ing!
+Happy stabbin' (heh get it, cause dagger)!

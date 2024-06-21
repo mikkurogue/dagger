@@ -1,6 +1,6 @@
 # Dagger CLI - dagger
-[![goreleaser](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml/badge.svg)](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml)
-[![](https://dcbadge.limes.pink/api/server/sjuAavPyQt?style=flat)](https://discord.gg/sjuAavPyQt)
+[![goreleaser](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml/badge.svg)](https://github.com/mikkurogue/bigmile-cli/actions/workflows/release.yml) [![GitHub Release](https://img.shields.io/github/release/tterb/PlayMusic.svg?style=flat)]()
+[![](https://dcbadge.limes.pink/api/server/sjuAavPyQt?style=flat)](https://discord.gg/sjuAavPyQt)  [![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
 
 
 A short CLI tool in Go that can help setup the developers environment with some default cli packages, installing VSCode or Zed editor for the developer.

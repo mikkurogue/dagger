@@ -10,16 +10,11 @@ import (
 	"github.com/fatih/color"
 )
 
-func Tools(cli_tools []string, current_os string, curr_step int) {
+func Tools(cli_tools []string, current_os string) {
 	for _, tool := range cli_tools {
 		switch tool {
 		case "eza":
 			_ = spinner.New().Title("Installing Eza...").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install eza on this operating system\n")
-					return
-				}
 				_, err := exec.Command("brew", "install", "eza").Output()
 				if err != nil {
 					color.Red("Error installing eza\n" + EZA_SETTING)
@@ -30,11 +25,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			}).Run()
 		case "fzf":
 			_ = spinner.New().Title("Installing fzf...").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install fzf on this operating system\n")
-					return
-				}
 				_, err := exec.Command("brew", "install", "fzf").Output()
 				if err != nil {
 					color.Red("Error installing fzf\n")
@@ -43,11 +33,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			}).Run()
 		case "bat":
 			_ = spinner.New().Title("Installing bat...").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install bat on this operating system\n")
-					return
-				}
 				_, err := exec.Command("brew", "install", "bat").Output()
 				if err != nil {
 					color.Red("Error installing bat\n")
@@ -56,11 +41,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			}).Run()
 		case "ripgrep":
 			_ = spinner.New().Title("Installing Ripgrep...").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install ripgrep on this operating system\n")
-					return
-				}
 				_, err := exec.Command("brew", "install", "ripgrep").Output()
 				if err != nil {
 					color.Red("Error installing ripgrep\n")
@@ -69,12 +49,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			}).Run()
 		case "thefuck":
 			_ = spinner.New().Title("Installing thefuck...").Action(func() {
-				curr_step += 1
-				if current_os != "darwin" {
-					color.Red("can not install thefuck on this operating system\n")
-					return
-				}
-
 				_, err := exec.Command("brew", "install", "thefuck").Output()
 				if err != nil {
 					color.Red("Error installing thefuck\n")
@@ -85,11 +59,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			}).Run()
 		case "lazygit":
 			_ = spinner.New().Title("Installing lazygit..").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install lazygit on this operating system using brew\n")
-					return
-				}
 				_, err := exec.Command("brew", "install", "lazygit").Output()
 				if err != nil {
 					color.Red("Error installing lazygit\n")
@@ -98,11 +67,6 @@ func Tools(cli_tools []string, current_os string, curr_step int) {
 			}).Run()
 		case "nvm":
 			_ = spinner.New().Title("Installing nvm..").Action(func() {
-				curr_step += 1
-				if current_os == "windows" {
-					color.Red("can not install nvm on this operating system using brew\n")
-					return
-				}
 				_, err := exec.Command("brew", "install", "nvm").Output()
 				if err != nil {
 					color.Red("Error installing nvm\n")

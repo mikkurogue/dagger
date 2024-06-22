@@ -23,7 +23,6 @@ var (
 	zed_installed    bool
 	vscode_installed bool
 	current_os       string
-	curr_step int = 0
 	shell string
 )
 
@@ -54,9 +53,9 @@ func main() {
 	}
 
 	install := func() {
-		installer.Tools(cli_tools, current_os, curr_step)
-		installer.Aliases(aliases, current_os, curr_step)
-		installer.CodeEditor(code_editor, current_os, curr_step)
+		installer.Tools(cli_tools, current_os)
+		installer.Aliases(aliases, current_os)
+		installer.CodeEditor(code_editor, current_os)
 	}
 
 	_ = spinner.New().Title("").Action(install).Run()

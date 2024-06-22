@@ -33,7 +33,7 @@ func Langs(langs []string, current_os string) {
 				// create the .nvm folder for the nvm requirements
 				exec.Command("mkdir", "~/.nvm")
 				util.AgnosticConfigUpdater("\n# Added by dagger\n" + NVM_SH_SETTING)
-			}).Run()
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "skip":
 			continue
 		}

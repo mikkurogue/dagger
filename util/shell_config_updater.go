@@ -6,69 +6,77 @@ import (
 	"os/user"
 	"path/filepath"
 	"strings"
-
-	"github.com/fatih/color"
 )
 
 // example alias:  alias := "\n# Added by dagger\nalias ll='ls -la'\n"
 
-func AgnosticConfigUpdater(alias string) {
+func AgnosticConfigUpdater(alias string) string {
+	shellPath := ShellDefiner()
 
-	var shell_path = ShellDefiner()
-
-	if strings.Contains(shell_path, default_bash_path) {
+	switch {
+	case strings.Contains(shellPath, "bash"):
 		BashConfigUpdater(alias)
-	}
-
-	if strings.Contains(shell_path, default_zsh_path) {
+	case strings.Contains(shellPath, "zsh"):
 		ZshConfigUpdater(alias)
+	default:
+		fmt.Println("Unsupported shell:", shellPath)
 	}
 
+	return "Configuration updated"
 }
 
 func ZshConfigUpdater(alias string) {
 	usr, err := user.Current()
 	if err != nil {
-		color.Red("Error getting current user home dir")
+		fmt.Println("Error getting current user home dir:", err)
 		return
 	}
 
-	zsh_config_path := filepath.Join(usr.HomeDir, ".zshrc")
+	zshConfigPath := filepath.Join(usr.HomeDir, ".zshrc")
 
-	config_file, err := os.OpenFile(zsh_config_path, os.O_APPEND|os.O_WRONLY, 0644)
+	// Check if the file exists
+	if _, err := os.Stat(zshConfigPath); os.IsNotExist(err) {
+		fmt.Println("The .zshrc file does not exist at path:", zshConfigPath)
+		return
+	}
+
+	configFile, err := os.OpenFile(zshConfigPath, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		color.Red("Error opening zsh config file\n")
+		fmt.Println("Error opening zsh config file:", err)
 		return
 	}
+	defer configFile.Close()
 
-	fmt.Print(config_file)
-	defer config_file.Close()
-
-	if _, err := config_file.WriteString(alias); err != nil {
-		color.Red("Error updating zsh config file\n")
+	if _, err := configFile.WriteString(alias); err != nil {
+		fmt.Println("Error writing to zsh config file:", err)
 		return
 	}
-
 }
 
 func BashConfigUpdater(alias string) {
 	usr, err := user.Current()
 	if err != nil {
-		color.Red("Error getting current user home dir")
+		fmt.Println("Error getting current user home dir:", err)
 		return
 	}
 
-	bash_config_path := filepath.Join(usr.HomeDir, ".bashrc")
+	bashConfigPath := filepath.Join(usr.HomeDir, ".bashrc")
 
-	config_file, err := os.OpenFile(bash_config_path, os.O_APPEND|os.O_WRONLY, 0644)
+	// Check if the file exists
+	if _, err := os.Stat(bashConfigPath); os.IsNotExist(err) {
+		fmt.Println("The .bashrc file does not exist at path:", bashConfigPath)
+		return
+	}
+
+	configFile, err := os.OpenFile(bashConfigPath, os.O_APPEND|os.O_WRONLY, 0644)
 	if err != nil {
-		color.Red("Error opening bash config file\n")
+		fmt.Println("Error opening bash config file:", err)
 		return
 	}
-	defer config_file.Close()
+	defer configFile.Close()
 
-	if _, err := config_file.WriteString(alias); err != nil {
-		color.Red("Error updating bash config file\n")
+	if _, err := configFile.WriteString(alias); err != nil {
+		fmt.Println("Error writing to bash config file:", err)
 		return
 	}
 }

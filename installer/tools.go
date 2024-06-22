@@ -19,7 +19,7 @@ func Tools(cli_tools []string, current_os string) {
 					color.Red("Error installing eza\n")
 					os.Exit(1)
 				}
-				util.AgnosticConfigUpdater("\n# Added by dagger\n" + EZA_SETTING)
+				util.AgnosticConfigUpdater("\n# Added by dagger\nalias ls=\"eza --color=always --long --git --no-filesize --no-time --no-user --no-permissions --tree --level=2\"")
 			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "fzf":
 			_ = spinner.New().Title("Installing fzf...").Action(func() {

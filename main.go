@@ -19,23 +19,20 @@ import (
 var (
 	cli_tools        []string
 	aliases          []string
+	langs            []string
 	code_editor      string
 	zed_installed    bool
 	vscode_installed bool
 	current_os       string
-	shell string
 )
-
-
 
 func main() {
 
 	util.DefineOs(&current_os)
 
-	fmt.Print(util.ShellDefiner())
-
 	form := huh.NewForm(
 		core.Tools(&cli_tools),
+		core.Langs(&langs),
 		// Install handy dandy aliases
 		core.Aliases(&aliases),
 		// Install text editor
@@ -54,11 +51,12 @@ func main() {
 
 	install := func() {
 		installer.Tools(cli_tools, current_os)
+		installer.Langs(langs, current_os)
 		installer.Aliases(aliases, current_os)
 		installer.CodeEditor(code_editor, current_os)
 	}
 
-	_ = spinner.New().Title("").Action(install).Run()
+	_ = spinner.New().Title("").TitleStyle(util.TITLE_STYLE).Action(install).Run()
 
 	var sb strings.Builder
 	keyword := func(s string) string {

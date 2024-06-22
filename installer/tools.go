@@ -2,7 +2,6 @@ package installer
 
 import (
 	"dagger/util"
-	"log"
 	"os"
 	"os/exec"
 
@@ -17,12 +16,11 @@ func Tools(cli_tools []string, current_os string) {
 			_ = spinner.New().Title("Installing Eza...").Action(func() {
 				_, err := exec.Command("brew", "install", "eza").Output()
 				if err != nil {
-					color.Red("Error installing eza\n" + EZA_SETTING)
+					color.Red("Error installing eza\n")
 					os.Exit(1)
 				}
-
-				util.AgnosticConfigUpdater("\n# Added by dagger\n")
-			}).Run()
+				util.AgnosticConfigUpdater("\n# Added by dagger\n" + EZA_SETTING)
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "fzf":
 			_ = spinner.New().Title("Installing fzf...").Action(func() {
 				_, err := exec.Command("brew", "install", "fzf").Output()
@@ -30,7 +28,7 @@ func Tools(cli_tools []string, current_os string) {
 					color.Red("Error installing fzf\n")
 					os.Exit(1)
 				}
-			}).Run()
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "bat":
 			_ = spinner.New().Title("Installing bat...").Action(func() {
 				_, err := exec.Command("brew", "install", "bat").Output()
@@ -38,7 +36,7 @@ func Tools(cli_tools []string, current_os string) {
 					color.Red("Error installing bat\n")
 					os.Exit(1)
 				}
-			}).Run()
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "ripgrep":
 			_ = spinner.New().Title("Installing Ripgrep...").Action(func() {
 				_, err := exec.Command("brew", "install", "ripgrep").Output()
@@ -46,7 +44,7 @@ func Tools(cli_tools []string, current_os string) {
 					color.Red("Error installing ripgrep\n")
 					os.Exit(1)
 				}
-			}).Run()
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "thefuck":
 			_ = spinner.New().Title("Installing thefuck...").Action(func() {
 				_, err := exec.Command("brew", "install", "thefuck").Output()
@@ -55,8 +53,8 @@ func Tools(cli_tools []string, current_os string) {
 					os.Exit(1)
 				}
 
-				util.AgnosticConfigUpdater("\n# Added by dagger\n"+ THE_FUCK_SETTING)
-			}).Run()
+				util.AgnosticConfigUpdater("\n# Added by dagger\n" + THE_FUCK_SETTING)
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "lazygit":
 			_ = spinner.New().Title("Installing lazygit..").Action(func() {
 				_, err := exec.Command("brew", "install", "lazygit").Output()
@@ -64,20 +62,7 @@ func Tools(cli_tools []string, current_os string) {
 					color.Red("Error installing lazygit\n")
 					os.Exit(1)
 				}
-			}).Run()
-		case "nvm":
-			_ = spinner.New().Title("Installing nvm..").Action(func() {
-				_, err := exec.Command("brew", "install", "nvm").Output()
-				if err != nil {
-					color.Red("Error installing nvm\n")
-					log.Fatal(err)
-					os.Exit(1)
-				}
-
-				// create the .nvm folder for the nvm requirements
-				exec.Command("mkdir", "~/.nvm")
-				util.AgnosticConfigUpdater("\n# Added by dagger\n" + NVM_SH_SETTING)
-			}).Run()
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "skip":
 			continue
 		}
@@ -86,7 +71,7 @@ func Tools(cli_tools []string, current_os string) {
 
 const NVM_SH_SETTING = `export NVM_DIR="$HOME/.nvm"
     [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion` 
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion`
 
 const THE_FUCK_SETTING = "eval $(thefuck --alias)"
 

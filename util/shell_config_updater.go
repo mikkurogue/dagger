@@ -1,9 +1,11 @@
 package util
 
 import (
+	"fmt"
 	"os"
 	"os/user"
 	"path/filepath"
+	"strings"
 
 	"github.com/fatih/color"
 )
@@ -12,18 +14,17 @@ import (
 
 func AgnosticConfigUpdater(alias string) {
 
-		var shell_path = ShellDefiner()
+	var shell_path = ShellDefiner()
 
-		if shell_path == default_bash_path {
-			BashConfigUpdater(alias)
-		}
+	if strings.Contains(shell_path, default_bash_path) {
+		BashConfigUpdater(alias)
+	}
 
-		if shell_path == default_zsh_path {
-			ZshConfigUpdater(alias)
-		}
-	
+	if strings.Contains(shell_path, default_zsh_path) {
+		ZshConfigUpdater(alias)
+	}
+
 }
-
 
 func ZshConfigUpdater(alias string) {
 	usr, err := user.Current()
@@ -39,6 +40,8 @@ func ZshConfigUpdater(alias string) {
 		color.Red("Error opening zsh config file\n")
 		return
 	}
+
+	fmt.Print(config_file)
 	defer config_file.Close()
 
 	if _, err := config_file.WriteString(alias); err != nil {

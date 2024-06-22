@@ -1,6 +1,7 @@
 package installer
 
 import (
+	"dagger/util"
 	"os"
 	"os/exec"
 
@@ -21,7 +22,7 @@ func CodeEditor(code_editor string, current_os string) {
 					color.Red("Error installing " + code_editor)
 					os.Exit(1)
 				}
-			})
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		}
 	}
 }

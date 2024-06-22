@@ -17,7 +17,7 @@ func Aliases(aliases []string, current_os string) {
 					return
 				}
 				util.AgnosticConfigUpdater("\n# Added by dagger\nalias git-purge=\"git fetch -p && git branch --merged | grep -v '*' | grep -v 'master' | xargs git branch -d\"")
-			}).Run()
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "skip":
 			continue
 		}

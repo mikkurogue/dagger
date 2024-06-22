@@ -40,8 +40,6 @@ Currently the cli supports installing
   - VSCode
 - git-purge alias
 
-Note: to use this, you MUST use the zsh terminal. It makes it easier to develop for if the whole team is using the same shell. Functionally zsh and bash are the same but zsh is slightly newer.
-
 A majority of these commands (should) work for Linux machines too, that use zsh.
 
 Only cli tool that is not recommended for Linux is `thefuck` as this seems to be either super slow or it doesnt work properly on the Linux kernel.

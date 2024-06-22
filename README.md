@@ -34,6 +34,7 @@ Currently the cli supports installing
 - fzf
 - bat
 - ripgrep
+- nvm
 - thefuck
 - A code editor
   - Zed

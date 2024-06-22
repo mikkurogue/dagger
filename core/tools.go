@@ -17,6 +17,7 @@ func Tools(cli_tools *[]string) *huh.Group {
 			huh.NewOption("Ripgrep - better grep", "ripgrep"),
 			huh.NewOption("TheFuck - CLI typo fixer", "thefuck"),
 			huh.NewOption("lazygit - terminal git manage", "lazygit"),
+			huh.NewOption("nvm - node version manager", "nvm"),
 			huh.NewOption("Skip step", "skip"),
 		).
 		Validate(func(s []string) error {

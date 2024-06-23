@@ -78,10 +78,6 @@ func Tools(cli_tools []string, current_os string) {
 	}
 }
 
-const NVM_SH_SETTING = `export NVM_DIR="$HOME/.nvm"
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion`
-
 const THE_FUCK_SETTING = "eval $(thefuck --alias)"
 
 const EZA_SETTING = "alias ls='eza --color=always --long --git --no-filesize --no-time --no-user --no-permissions --tree --level=2'"

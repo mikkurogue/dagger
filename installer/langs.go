@@ -52,7 +52,7 @@ func Langs(langs []string, current_os string) {
 						Foreground(lipgloss.Color("#d3d3d3")).
 						Italic(true).
 						Padding(0, 1).
-						Render("Error creating ~/.dagger directory:" + err.Error()))
+						Render("Error creating ~/.nvm directory:" + err.Error()))
 					return
 				}
 				util.AgnosticConfigUpdater("\n# Added by dagger\n" + NVM_SH_SETTING)
@@ -62,3 +62,7 @@ func Langs(langs []string, current_os string) {
 		}
 	}
 }
+
+const NVM_SH_SETTING = `export NVM_DIR="$HOME/.nvm"
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
+    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion`

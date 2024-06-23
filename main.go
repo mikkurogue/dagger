@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dagger/config"
 	"dagger/core"
 	"dagger/installer"
 	"dagger/util"
@@ -19,11 +20,15 @@ var (
 	zed_installed    bool
 	vscode_installed bool
 	current_os       string
+
+	cfg config.Config
 )
 
 func main() {
 
 	util.DefineOs(&current_os)
+
+	config.OpenConfig(&cfg)
 
 	form := huh.NewForm(
 		core.Tools(&cli_tools),

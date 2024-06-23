@@ -2,15 +2,28 @@ package installer
 
 import (
 	"dagger/util"
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 
 	"github.com/charmbracelet/huh/spinner"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/fatih/color"
 )
 
 func Langs(langs []string, current_os string) {
+	dir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Println(lipgloss.NewStyle().
+			Background(lipgloss.Color("#ff0000")).
+			Foreground(lipgloss.Color("#d3d3d3")).
+			Italic(true).
+			Padding(0, 1).
+			Render("Can not access user home dir"))
+	}
+
 	for _, lang := range langs {
 		switch lang {
 		case "go":
@@ -31,7 +44,17 @@ func Langs(langs []string, current_os string) {
 				}
 
 				// create the .nvm folder for the nvm requirements
-				exec.Command("mkdir", "~/.nvm")
+				nvm_dir := filepath.Join(dir, ".nvm")
+
+				if err := os.MkdirAll(nvm_dir, 0755); err != nil {
+					fmt.Println(lipgloss.NewStyle().
+						Background(lipgloss.Color("#ff0000")).
+						Foreground(lipgloss.Color("#d3d3d3")).
+						Italic(true).
+						Padding(0, 1).
+						Render("Error creating ~/.dagger directory:" + err.Error()))
+					return
+				}
 				util.AgnosticConfigUpdater("\n# Added by dagger\n" + NVM_SH_SETTING)
 			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "skip":

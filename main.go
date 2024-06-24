@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dagger/config"
 	"dagger/core"
 	"dagger/installer"
 	"dagger/util"
@@ -19,11 +20,15 @@ var (
 	zed_installed    bool
 	vscode_installed bool
 	current_os       string
+
+	cfg config.Config
 )
 
 func main() {
 
 	util.DefineOs(&current_os)
+
+	config.OpenConfig(&cfg)
 
 	form := huh.NewForm(
 		core.Tools(&cli_tools),
@@ -43,6 +48,10 @@ func main() {
 		installer.Langs(langs, current_os)
 		installer.Aliases(aliases, current_os)
 		installer.CodeEditor(code_editor, current_os)
+
+		cfg := config.Config{}
+
+		cfg.UpdateConfig(aliases, cli_tools, code_editor, langs)
 	}
 
 	_ = spinner.New().Title("").TitleStyle(util.TITLE_STYLE).Action(install).Run()

@@ -69,10 +69,10 @@ func OpenConfig(c *Config) {
 			Padding(0, 1).
 			Render("Could not open file... double check directory otherwise nuke"))
 
-		c.aliases = []string{"a1", "a2"}
-		c.cli_tools = []string{"tool1", "tool2"}
-		c.code_editor = "default_editor"
-		c.langs = []string{"lang1", "lang2"}
+		c.aliases = []string{}
+		c.cli_tools = []string{}
+		c.code_editor = ""
+		c.langs = []string{}
 
 		Create(c)
 		return
@@ -94,8 +94,6 @@ func OpenConfig(c *Config) {
 }
 
 func Create(config *Config) {
-	fmt.Println("We made it to create")
-
 	dir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
@@ -132,8 +130,6 @@ func Create(config *Config) {
 	}
 	defer file.Close()
 
-	// TODO Write the defaults here
-	//
 	content := fmt.Sprintf(
 		"# dagger config\nAliases: %v\nCLI Tools: %v\nCode Editor: %s\nLangs: %v\n",
 		config.aliases,
@@ -151,13 +147,10 @@ func Create(config *Config) {
 			Render("Error writing to ~/.dagger/.cfg file:" + err.Error()))
 		return
 	}
-
-	fmt.Println("Configuration file created with default values")
 }
 
 func (c *Config) DeleteConfig() {
 	// allow user to delete the config just incase it somehow corrupts
-	//
 	user_home_dir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
@@ -168,4 +161,19 @@ func (c *Config) DeleteConfig() {
 			Render(err.Error()))
 	}
 	exec.Command("rm", "-rf", user_home_dir+config_file_path)
+}
+
+func (c *Config) UpdateConfig(
+	aliases []string,
+	cli_tools []string,
+	code_editor string,
+	langs []string) {
+
+	c.cli_tools = cli_tools
+	c.aliases = aliases
+	c.code_editor = code_editor
+	c.langs = langs
+
+	// re-create the config
+	Create(c)
 }

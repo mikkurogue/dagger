@@ -48,6 +48,10 @@ func main() {
 		installer.Langs(langs, current_os)
 		installer.Aliases(aliases, current_os)
 		installer.CodeEditor(code_editor, current_os)
+
+		cfg := config.Config{}
+
+		cfg.UpdateConfig(aliases, cli_tools, code_editor, langs)
 	}
 
 	_ = spinner.New().Title("").TitleStyle(util.TITLE_STYLE).Action(install).Run()

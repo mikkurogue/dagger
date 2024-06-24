@@ -16,7 +16,9 @@ Once you've added the tap, you may now install the dagger package.
 note: i know the naming scheme sucks, I'll fix it one day (soon tm)
 
 Once this is installed, you can now simply run the cli in the terminal:
-`dagger`.
+`dagger-cli`.
+
+I do recommend aliasing because `*-cli` is annoying to type. I would alias to `alias dagger="dagger-cli"` or `alias dgr="dagger-cli"`
 
 ## Contribution
 

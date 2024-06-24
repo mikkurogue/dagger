@@ -22,7 +22,7 @@ I do recommend aliasing because `*-cli` is annoying to type. I would alias to `a
 
 ## Contribution
 
-If you have a feature request, feel free to create a PR. Releases will happen periodically on a whim, contributors can always request a release when a specific feature has been merged.
+If you have a feature request, feel free to create a PR. Releases will happen periodically on a whim, contributors can always request a release when a specific feature has been merged. We do have guidelines but these are the defaults given by GH, and not extremely strict. As long as the feature is explained correctly and of course adheres to not being a security issue for the users it's usually fine.
 
 To get in contact with me, or any contributors, click the Discord badge to join the dagger cli community!
 First contributors to contribute and join the discord get a special "founder" role, no extra benefits just a cool little gizmo.

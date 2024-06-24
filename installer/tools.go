@@ -21,6 +21,15 @@ func Tools(cli_tools []string, current_os string) {
 				}
 				util.AgnosticConfigUpdater("\n# Added by dagger\nalias ls=\"eza --color=always --long --git --no-filesize --no-time --no-user --no-permissions --tree --level=2\"")
 			}).TitleStyle(util.TITLE_STYLE).Run()
+		case "zoxide":
+			_ = spinner.New().Title("Installing zoxide...").Action(func() {
+				_, err := exec.Command("brew", "install", "zoxide").Output()
+				if err != nil {
+					color.Red("Error installing zoxide\n")
+					os.Exit(1)
+				}
+				util.AgnosticConfigUpdater("\n# Added by dagger\nalias cd=\"z\"")
+			}).TitleStyle(util.TITLE_STYLE).Run()
 		case "fzf":
 			_ = spinner.New().Title("Installing fzf...").Action(func() {
 				_, err := exec.Command("brew", "install", "fzf").Output()
@@ -68,10 +77,6 @@ func Tools(cli_tools []string, current_os string) {
 		}
 	}
 }
-
-const NVM_SH_SETTING = `export NVM_DIR="$HOME/.nvm"
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion`
 
 const THE_FUCK_SETTING = "eval $(thefuck --alias)"
 

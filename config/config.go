@@ -77,7 +77,8 @@ func OpenConfig(c *Config) {
 	}
 	defer config.Close()
 
-	content, err := io.ReadAll(config)
+	// do something with the content
+	_, err = io.ReadAll(config)
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
 			Background(lipgloss.Color("#ff0000")).

@@ -58,8 +58,6 @@ func OpenConfig(c *Config) {
 			Render(err.Error()))
 	}
 
-	fmt.Println(user_home_dir + config_file_path)
-
 	config, err := os.OpenFile(user_home_dir+config_file_path, os.O_RDONLY, 0644)
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
@@ -89,8 +87,6 @@ func OpenConfig(c *Config) {
 			Render("giga err", err.Error()))
 		return
 	}
-
-	fmt.Println("config content:\n", string(content))
 }
 
 func Create(config *Config) {

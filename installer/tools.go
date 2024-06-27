@@ -9,8 +9,8 @@ import (
 	"github.com/fatih/color"
 )
 
-func Tools(cli_tools []string, current_os string) {
-	for _, tool := range cli_tools {
+func Tools(cliTools []string, currentOs string) {
+	for _, tool := range cliTools {
 		switch tool {
 		case "eza":
 			_ = spinner.New().Title("Installing Eza...").Action(func() {

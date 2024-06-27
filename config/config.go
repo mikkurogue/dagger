@@ -11,22 +11,22 @@ import (
 )
 
 const (
-	config_file_dir  = "/.dagger"
-	config_file_name = ".cfg"
-	config_file_path = "/.dagger/.cfg"
+	configFileDir  = "/.dagger"
+	configFileName = ".cfg"
+	configFilePath = "/.dagger/.cfg"
 )
 
 // contents of the cfg
 type Config struct {
-	cli_tools   []string
+	cliTools   []string
 	langs       []string
 	aliases     []string
-	code_editor string
+	codeEditor string
 }
 
 func (c *Config) ReadConfig() {
 
-	user_home_dir, err := os.UserHomeDir()
+	usrHomeDir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
 			Background(lipgloss.Color("#ff0000")).
@@ -36,7 +36,7 @@ func (c *Config) ReadConfig() {
 			Render(err.Error()))
 	}
 
-	if _, err := os.Stat(user_home_dir + config_file_path); err != nil {
+	if _, err := os.Stat(usrHomeDir + configFilePath); err != nil {
 		fmt.Println(lipgloss.NewStyle().
 			Background(lipgloss.Color("#ff0000")).
 			Foreground(lipgloss.Color("#d3d3d3")).
@@ -48,7 +48,7 @@ func (c *Config) ReadConfig() {
 }
 
 func OpenConfig(c *Config) {
-	user_home_dir, err := os.UserHomeDir()
+	usrHomeDir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
 			Background(lipgloss.Color("#ff0000")).
@@ -58,7 +58,7 @@ func OpenConfig(c *Config) {
 			Render(err.Error()))
 	}
 
-	config, err := os.OpenFile(user_home_dir+config_file_path, os.O_RDONLY, 0644)
+	config, err := os.OpenFile(usrHomeDir+configFilePath, os.O_RDONLY, 0644)
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
 			Background(lipgloss.Color("#ff0000")).
@@ -68,8 +68,8 @@ func OpenConfig(c *Config) {
 			Render("Could not open file... double check directory otherwise nuke"))
 
 		c.aliases = []string{}
-		c.cli_tools = []string{}
-		c.code_editor = ""
+		c.cliTools = []string{}
+		c.codeEditor = ""
 		c.langs = []string{}
 
 		Create(c)
@@ -130,8 +130,8 @@ func Create(config *Config) {
 	content := fmt.Sprintf(
 		"# dagger config\nAliases: %v\nCLI Tools: %v\nCode Editor: %s\nLangs: %v\n",
 		config.aliases,
-		config.cli_tools,
-		config.code_editor,
+		config.cliTools,
+		config.codeEditor,
 		config.langs,
 	)
 
@@ -148,7 +148,7 @@ func Create(config *Config) {
 
 func (c *Config) DeleteConfig() {
 	// allow user to delete the config just incase it somehow corrupts
-	user_home_dir, err := os.UserHomeDir()
+	usrHomeDir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().
 			Background(lipgloss.Color("#ff0000")).
@@ -157,18 +157,18 @@ func (c *Config) DeleteConfig() {
 			Padding(0, 1).
 			Render(err.Error()))
 	}
-	exec.Command("rm", "-rf", user_home_dir+config_file_path)
+	exec.Command("rm", "-rf", usrHomeDir+configFilePath)
 }
 
 func (c *Config) UpdateConfig(
 	aliases []string,
-	cli_tools []string,
-	code_editor string,
+	cliTools []string,
+	codeEditor string,
 	langs []string) {
 
-	c.cli_tools = cli_tools
+	c.cliTools = cliTools
 	c.aliases = aliases
-	c.code_editor = code_editor
+	c.codeEditor = codeEditor
 	c.langs = langs
 
 	// re-create the config

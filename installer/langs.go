@@ -13,7 +13,7 @@ import (
 	"github.com/fatih/color"
 )
 
-func Langs(langs []string, current_os string) {
+func Langs(langs []string, currentOs string) {
 	dir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(lipgloss.NewStyle().

@@ -7,12 +7,12 @@ import (
 	"github.com/fatih/color"
 )
 
-func Aliases(aliases []string, current_os string) {
+func Aliases(aliases []string, currentOs string) {
 	for _, alias := range aliases {
 		switch alias {
 		case "git-purge":
 			_ = spinner.New().Title("Setting git-purge alias").Action(func() {
-				if current_os == "windows" {
+				if currentOs == "windows" {
 					color.Red("can not set git-purge alias on this operating system \n")
 					return
 				}

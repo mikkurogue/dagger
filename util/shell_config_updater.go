@@ -19,6 +19,8 @@ func AgnosticConfigUpdater(alias string) string {
 		BashConfigUpdater(alias)
 	case strings.Contains(shellPath, "zsh"):
 		ZshConfigUpdater(alias)
+	case strings.Contains(shellPath, "cmd.exe"), strings.Contains(shellPath, "powershell.exe"):
+		PowerShellConfigUpdater(alias)
 	default:
 		fmt.Println("Unsupported shell:", shellPath)
 	}

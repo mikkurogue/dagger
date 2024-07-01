@@ -12,6 +12,7 @@ func Tools(cli_tools *[]string) *huh.Group {
 		Description("Select the tools you would like to install").
 		Options(
 			huh.NewOption("lazygit - terminal git manage", "lazygit"),
+			huh.NewOption("zoxide - better ls" "zoxide"),
 		).
 		Validate(func (s []string) error {
 			if len(s) == 0 {

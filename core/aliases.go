@@ -1,10 +1,10 @@
 package core
 
 import (
-	"errors"
-
 	"github.com/charmbracelet/huh"
 )
+
+// validation shouldnt be necessary as these aliases arent required.
 
 func Aliases(aliases *[]string) *huh.Group {
 	return huh.NewGroup(huh.NewMultiSelect[string]().
@@ -14,11 +14,5 @@ func Aliases(aliases *[]string) *huh.Group {
 			huh.NewOption("git purge", "git-purge"),
 			huh.NewOption("Skip step", "skip"),
 		).
-		Validate(func(s []string) error {
-			if len(s) == 0 {
-				return errors.New("please select at least one alias to install")
-			}
-			return nil
-		}).
 		Value(aliases))
 }

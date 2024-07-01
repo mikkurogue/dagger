@@ -8,15 +8,15 @@ import (
 
 func Tools(cli_tools *[]string) *huh.Group {
 	return huh.NewGroup(huh.NewMultiSelect[string]().
-		Title("CLI tools to install").
-		Description("Select the tools you would like to install").
+		Title("cli tools to install").
+		Description("select the tools you would like to install").
 		Options(
-			huh.NewOption("Eza - better LS", "eza"),
+			huh.NewOption("Eza - better ls", "eza"),
+			huh.NewOption("Zoxide - better cd", "zoxide"),
 			huh.NewOption("FZF - fuzzy finder", "fzf"),
 			huh.NewOption("Bat - better cat", "bat"),
 			huh.NewOption("Ripgrep - better grep", "ripgrep"),
-			huh.NewOption("Oh my zsh - ZSH theming", "oh-my-zsh"),
-			huh.NewOption("TheFuck - CLI typo fixer", "thefuck"),
+			huh.NewOption("TheFuck - cli typo fixer", "thefuck"),
 			huh.NewOption("lazygit - terminal git manage", "lazygit"),
 			huh.NewOption("Skip step", "skip"),
 		).

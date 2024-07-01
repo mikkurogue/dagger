@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/user"
 	"path/filepath"
@@ -79,4 +80,25 @@ func BashConfigUpdater(alias string) {
 		fmt.Println("Error writing to bash config file:", err)
 		return
 	}
+}
+
+func PowerShellConfigUpdater(alias string) error {
+
+	profile, _ := GetPowershellProfilePath()
+	existingContent, err := ioutil.ReadFile(profile)
+	if err != nil && !os.IsNotExist(err) {
+		return err
+	}
+
+	// append content to file
+	newContent := string(existingContent) + "\n# Added by dagger:\n" + alias
+
+	// Attempt to write to the file.
+	err = os.WriteFile(profile, []byte(newContent), 0644)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }

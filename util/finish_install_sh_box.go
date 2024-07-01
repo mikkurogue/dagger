@@ -1,6 +1,7 @@
 package util
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
@@ -8,10 +9,16 @@ import (
 	xstrings "github.com/charmbracelet/x/exp/strings"
 )
 
-func FinishInstallShBoxMultipleItems(items []string, category string) {
+// For now I couldnt think of a better way to do this so if/else case is used.
+// return error when it errors, and nil if its succesful?
+func FinishInstallShBoxMultipleItems(items []string, category string) error {
 	var sb strings.Builder
 	keyword := func(s string) string {
 		return lipgloss.NewStyle().Foreground(lipgloss.Color("212")).Render(s)
+	}
+
+	if len(items) == 0 {
+		return errors.New("no selection was made for " + category + " install")
 	}
 
 	if items[0] == "skip" {
@@ -32,9 +39,18 @@ func FinishInstallShBoxMultipleItems(items []string, category string) {
 			Padding(1, 2).
 			Render(sb.String()))
 	}
+
+	return nil
 }
 
-func FinishInstallShBox(item string, category string) {
+// For now I couldnt think of a better way to do this so if/else case is used.
+// return error when it errors, and nil if its succesful?
+func FinishInstallShBox(item string, category string) error {
+
+	if item == "" {
+		return errors.New("no selection was made for " + category + " install")
+	}
+
 	if item == "skip" {
 		fmt.Println(lipgloss.NewStyle().
 			Width(40).
@@ -50,4 +66,6 @@ func FinishInstallShBox(item string, category string) {
 			Foreground(lipgloss.Color("211")).
 			Render(category + " installed " + item))
 	}
+
+	return nil
 }

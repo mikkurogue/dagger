@@ -6,82 +6,34 @@ import (
 	"dagger/installer"
 	installer_windows "dagger/installer/windows"
 	"dagger/util"
-	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	"github.com/charmbracelet/huh"
 	"github.com/charmbracelet/huh/spinner"
-	"github.com/charmbracelet/lipgloss"
 )
 
 var (
-	cli_tools        []string
-	aliases          []string
-	langs            []string
-	code_editor      string
-	zed_installed    bool
-	vscode_installed bool
-	current_os       string
-
-	curr_step int = 0
+	cli_tools   []string
+	aliases     []string
+	langs       []string
+	code_editor string
+	current_os  string
 )
 
 func main() {
 
+	// update pointer value for the session so we dont need to keep re-assiging
 	util.DefineOs(&current_os)
 
 	if current_os == "windows" {
 		WindowsForm()
-
 	} else {
 		UnixForm()
 	}
 }
 
-func WindowsForm() {
-	form := huh.NewForm(
-		core_windows.Tools(&cli_tools),
-	)
-
-	err := form.Run()
-	if err != nil {
-		log.Fatal(err)
-		os.Exit(1)
-	}
-
-	install := func() {
-		installer_windows.Tools(cli_tools)
-	}
-
-	_ = spinner.New().Title("").Action(install).Run()
-
-	var sb strings.Builder
-	keyword := func(s string) string {
-		return lipgloss.NewStyle().Foreground(lipgloss.Color("212")).Render(s)
-	}
-	if cli_tools[0] == "skip" {
-		fmt.Println(lipgloss.NewStyle().
-			Width(40).
-			BorderStyle(lipgloss.RoundedBorder()).
-			Padding(1, 2).
-			Foreground(lipgloss.Color("209")).Render("CLI Tools skipped."))
-	} else {
-		fmt.Fprintf(&sb,
-			"Following tools were installed \n%s\n",
-			keyword(xstrings.SpokenLanguageJoin(cli_tools, xstrings.EN)),
-		)
-		fmt.Println(
-			lipgloss.NewStyle().
-				Width(40).
-				BorderStyle(lipgloss.RoundedBorder()).
-				Padding(1, 2).
-				Render(sb.String()),
-		)
-	}
-}
-
+// Todo: refactor both Form functions to use interfaces and struct methods
 func UnixForm() {
 	form := huh.NewForm(
 		core.Tools(&cli_tools),
@@ -105,9 +57,44 @@ func UnixForm() {
 
 	_ = spinner.New().Title("").TitleStyle(util.TITLE_STYLE).Action(install).Run()
 
-	util.FinishInstallShBoxMultipleItems(cli_tools, "Tools")
-	util.FinishInstallShBoxMultipleItems(langs, "Langs")
-	util.FinishInstallShBoxMultipleItems(aliases, "Alias")
-	util.FinishInstallShBox(code_editor, "Code editor")
+	errTool := util.FinishInstallShBoxMultipleItems(cli_tools, "Tools")
+	if errTool != nil {
+		log.Fatal(errTool)
+	}
 
+	errLang := util.FinishInstallShBoxMultipleItems(langs, "Langs")
+	if errLang != nil {
+		log.Fatal(errLang)
+	}
+	errAlias := util.FinishInstallShBoxMultipleItems(aliases, "Alias")
+	if errAlias != nil {
+		log.Fatal(errAlias)
+	}
+	errEditor := util.FinishInstallShBox(code_editor, "Code editor")
+	if errEditor != nil {
+		log.Fatal(errEditor)
+	}
+}
+
+func WindowsForm() {
+	form := huh.NewForm(
+		core_windows.Tools(&cli_tools),
+	)
+
+	err := form.Run()
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	install := func() {
+		installer_windows.Tools(cli_tools)
+	}
+
+	_ = spinner.New().Title("").Action(install).Run()
+
+	toolErr := util.FinishInstallShBoxMultipleItems(cli_tools, "Tools")
+	if toolErr != nil {
+		log.Fatal(toolErr)
+	}
 }

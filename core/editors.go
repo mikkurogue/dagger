@@ -6,7 +6,7 @@ import (
 	"github.com/charmbracelet/huh"
 )
 
-func Editors(code_editor *string) *huh.Group {
+func Editors(codeEditor *string) *huh.Group {
 	return huh.NewGroup(
 		huh.NewSelect[string]().
 			Title("Code editor").
@@ -22,5 +22,5 @@ func Editors(code_editor *string) *huh.Group {
 				}
 				return nil
 			}).
-			Value(code_editor))
+			Value(codeEditor))
 }

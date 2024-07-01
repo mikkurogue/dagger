@@ -17,7 +17,7 @@ universal_binaries:
 
 brews:
   - name: dagger
-    homepage: https://github.com/mikkurogue/dagger-cli
+    homepage: https://github.com/mikkurogue/dagger
     commit_author:
       name: Mikku
       email: michael.lindemans@outlook.com

@@ -2,18 +2,18 @@ package util
 
 import "runtime"
 
-func DefineOs(current_os *string) *string {
+func DefineOs(currentOs *string) *string {
 	if runtime.GOOS == "windows" {
-		*current_os = "windows"
+		*currentOs = "windows"
 	}
 
 	if runtime.GOOS == "darwin" {
-		*current_os = "darwin"
+		*currentOs = "darwin"
 	}
 
 	if runtime.GOOS == "linux" {
-		*current_os = "linux"
+		*currentOs = "linux"
 	}
 
-	return current_os
+	return currentOs
 }

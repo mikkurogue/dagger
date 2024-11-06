@@ -14,6 +14,8 @@ func Editors(codeEditor *string) *huh.Group {
 			Options(
 				huh.NewOption("Visual Studio Code", "visual-studio-code"),
 				huh.NewOption("Zed", "zed"),
+				huh.NewOption("NeoVim - expert mode", "neovim"),
+				huh.NewOption("Helix", "helix"),
 				huh.NewOption("Skip step", "skip"),
 			).
 			Validate(func(s string) error {
